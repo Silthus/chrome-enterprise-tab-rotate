@@ -1,71 +1,52 @@
-# Chrome Extension TypeScript Starter
+# Chrome Enterprise Tab Rotate Extension
 
-[![Build Status](https://travis-ci.org/chibat/chrome-extension-typescript-starter.svg?branch=master)](https://travis-ci.org/chibat/chrome-extension-typescript-starter)
+![build status](https://github.com/silthus/chrome-enterprise-tab-rotate/workflows/Node%20CI/badge.svg)
 
-Chrome Extension, TypeScript and Visual Studio Code
+Chrome tab rotation for enterprises based on a JSON config and configured by policies.
 
-## Prerequisites
+## Getting started
+
+### Prerequisites
 
 * [node + npm](https://nodejs.org/) (Current Version)
 
-## Option
-
-* [Visual Studio Code](https://code.visualstudio.com/)
-
-## Includes the following
-
-* TypeScript
-* Webpack
-* Moment.js
-* jQuery
-* Jest
-* Example Code
-    * Chrome Storage
-    * Options Version 2
-    * content script
-    * count up badge number
-    * background
-
-## Project Structure
+### Project Structure
 
 * src/typescript: TypeScript source files
 * src/assets: static files
 * dist: Chrome Extension directory
 * dist/js: Generated JavaScript files
 
-## Setup
+### Setup
 
-```
+```sh
 npm install
 ```
 
-## Import as Visual Studio Code project
+### Build
 
-...
-
-## Build
-
-```
+```sh
 npm run build
 ```
 
-## Build in watch mode
+### Build in watch mode
 
-### terminal
+#### Terminal
 
-```
+```sh
 npm run watch
 ```
 
-### Visual Studio Code
+#### Visual Studio Code
 
 Run watch mode.
 
 type `Ctrl + Shift + B`
 
-## Load extension to chrome
+### Load extension to chrome
 
 Load `dist` directory
 
-## Test
+### Test
+
 `npx jest` or `npm run test`
