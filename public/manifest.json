@@ -3,7 +3,7 @@
 
   "name": "Chrome Enterprise Tab Rotate",
   "description": "Chrome Extensions to rotate tabs based on a JSON config loaded from a remote url. Designed to be configured by group policies.",
-  "version": "1.0",
+  "version": "1.0.0",
 
   "options_ui": {
     "page": "options.html",
@@ -23,6 +23,11 @@
 
   "permissions": [
     "storage",
+    "tabs",
     "<all_urls>"
-  ]
+  ],
+
+  "storage": {
+    "managed_schema": "schema.json"
+  }
 }

@@ -1,3 +1,4 @@
+import { restore_options } from "./options";
 
 function polling() {
     console.log('polling...');
@@ -6,3 +7,4 @@ function polling() {
 
 polling();
 
+restore_options();

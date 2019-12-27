@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "title": "Config url.",
+      "description": "Provide the url to load your tab rotate config."
+    },
+    "retry_count": {
+        "type": "integer",
+        "title": "Retry count (default: 5)",
+        "description": "How often should the extension try to load the config until it gives up. -1 for infinite."
+    },
+    "retry_interval": {
+        "type": "integer",
+        "title": "Retry interval in seconds (default: 60s)",
+        "description": "How long should the extension wait to retry loading the config after an error occured."
+    },
+    "reload_interval": {
+        "type": "integer",
+        "title": "Reload interval in seconds (default: 60s)",
+        "description": "How often should we reload the config and check if there were any changes."
+    }
+  }
+}
