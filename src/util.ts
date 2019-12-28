@@ -1,7 +1,9 @@
-import { Config } from "./models/config";
 
-export function mergeConfig(configs: Config[]): Promise<Config> {
-    return new Promise<Config>(() => {
-        return Object.assign({}, ...configs);
-    });
+export function clean(obj) {
+  for (var propName in obj) {
+    if (obj[propName] === null || obj[propName] === undefined  || obj[propName] === '') {
+      delete obj[propName];
+    }
+  }
+  return obj;
 }
