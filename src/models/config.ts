@@ -19,9 +19,15 @@ export class Config {
   }
 
   loadDefaults() {
-    for (let [key, value] of Object.entries(this).filter(
-      ([key, value]) => typeof value === 'string' || typeof value === 'number'
-    )) {
+    for (let [key, value] of Object.entries(this)
+      .filter(
+        ([key, value]) => typeof value === 'string' || typeof value === 'number'
+      )
+      .map(([key, value]) => {
+        const ret = Number.parseInt(value);
+        if (ret !== NaN) value = ret;
+        return [key, value];
+      })) {
       this.ConfigPropertyLoaded.next({
         key,
         value,
@@ -41,7 +47,7 @@ export class Config {
         key,
         value,
         old_value: this[key],
-        type: defaultConfig[key] === value ? 'default' : type
+        type: defaultConfig[key] == value ? 'default' : type
       });
       this[key] = value;
     }
