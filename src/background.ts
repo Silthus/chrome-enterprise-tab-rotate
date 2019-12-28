@@ -1,10 +1,14 @@
-import { restore_options } from "./options";
+import { Config } from "./models/config";
+import { CONFIG_UPDATED_MESSAGE } from "./models/messages";
 
-function polling() {
-    console.log('polling...');
-    setTimeout(polling, 1000 * 30);
-}
+export const OPTIONS = new Config();
 
-polling();
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message === CONFIG_UPDATED_MESSAGE) {
+        OPTIONS.load();
+    }
+})
 
-restore_options();
+OPTIONS.ConfigLoaded.subscribe(config => {
+    console.log(config);
+});
