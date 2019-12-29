@@ -1,6 +1,8 @@
-import { Subject } from 'rxjs';
-import { clean } from '../util';
+import { Subject, Observable, empty, from, throwError, of } from 'rxjs';
+import { map, retryWhen, delay, take, concat, concatMap, shareReplay } from 'rxjs/operators';
+import { clean, getJSON } from '../util';
 import { CONFIG_UPDATED_MESSAGE } from './messages';
+import * as jQuery from 'jquery';
 
 export class Config {
   ConfigPropertyLoaded: Subject<ConfigProperty> = new Subject<ConfigProperty>();
@@ -12,6 +14,22 @@ export class Config {
   retry_count: number = 6;
   retry_interval: number = 10;
   reload_interval: number = 60;
+
+  public getTabRotationConfig(): Observable<TabRotationConfig> {
+    if (this.url === undefined || this.url === null || this.url === '') {
+      return empty();
+    }
+    return getJSON(this.url).pipe(
+      map<any, TabRotationConfig>(response => response),
+      retryWhen(errors =>
+        errors.pipe(
+          delay(+this.retry_interval * 1000),
+          take(+this.retry_count),
+          concat(throwError('Error fetching config from ' + this.url + ' after ' + this.retry_count + ' retries...'))
+        )
+      )
+    );
+  }
 
   public load() {
     this.loadDefaults();
@@ -69,6 +87,18 @@ export interface ConfigProperty {
   value: string | number;
   old_value: string | number;
   type: ConfigType;
+}
+
+export interface TabRotationConfig {
+  fullscreen: boolean;
+  lazyLoadTabs: boolean;
+  websites: Website[];
+}
+
+export interface Website {
+  url: string;
+  duration: number;
+  tabReloadIntervalSeconds: number;
 }
 
 export type ConfigType = 'default' | 'local' | 'managed';

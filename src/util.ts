@@ -1,3 +1,5 @@
+import { of, Observable } from "rxjs";
+import * as jQuery from 'jquery';
 
 export function clean(obj) {
   for (var propName in obj) {
@@ -6,4 +8,20 @@ export function clean(obj) {
     }
   }
   return obj;
+}
+
+export function getJSON(url: string) {
+  return Observable.create(observer => {
+    var canceled = false;
+    if (!canceled) {
+      jQuery
+        .getJSON(url)
+        .done(data => {
+          observer.next(data);
+          observer.complete();
+        })
+        .fail(err => observer.error(err));
+    }
+    return () => (canceled = true);
+  });
 }
