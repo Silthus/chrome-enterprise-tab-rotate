@@ -1,8 +1,9 @@
 import { Config, TabRotationConfig } from './config';
 import { CONFIG_UPDATED_MESSAGE } from './messages';
-import { tap, switchMap, catchError } from 'rxjs/operators';
+import { tap, switchMap, catchError, filter, map } from 'rxjs/operators';
 import { timer, of, Subject, Observable } from 'rxjs';
 import { TabRotateSession } from './tab-rotate-session';
+import deepEqual from 'deep-equal';
 
 export interface TabRotationStatus {
   status: 'running' | 'stopped' | 'error' | 'paused' | 'waiting';
@@ -54,15 +55,25 @@ export class TabRotator {
             return of(undefined);
           })
         )
-      )
+      ),
+      map(config => config as TabRotationConfig),
+      filter(config => !deepEqual(this._config, config))
     ).subscribe(config => {
       console.log("Loaded remote config:");
       console.log(config);
       this._config = config;
-      this._initialized = true;
+      
       if (this._config.autoStart) {
-        this.start();
+        if (this._initialized) {
+          this.reload();
+        } else {
+          this.start();
+        }
+      } else {
+        this.stop();
       }
+      
+      this._initialized = true;
     });
 
     this._options.load();

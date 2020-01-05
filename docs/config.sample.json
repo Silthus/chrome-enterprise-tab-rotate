@@ -9,7 +9,7 @@
             "tabReloadIntervalSeconds": 60
         },
         {
-            "url": "chrome-extension://pjgjpabbgnnoohijnillgbckikfkbjed/src/settings.html",
+            "url": "chrome-extension://tobedefined/src/settings.html",
             "duration": 10,
             "tabReloadIntervalSeconds": 15
         },
@@ -19,7 +19,7 @@
             "tabReloadIntervalSeconds": 300
         },
         {
-            "url": "https://chrome.google.com/webstore/detail/tab-rotate/pjgjpabbgnnoohijnillgbckikfkbjed",
+            "url": "https://chrome.google.com/webstore/detail/enterprise-tab-rotate/tobedefined",
             "duration": 10,
             "tabReloadIntervalSeconds": 15
         }
