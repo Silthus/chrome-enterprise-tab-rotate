@@ -1,5 +1,5 @@
 {
-    "auto_start": false,
+    "autoStart": false,
     "fullscreen": false,
     "lazyLoadTabs": false,
     "websites": [

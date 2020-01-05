@@ -1,8 +1,7 @@
 import { TabRotator } from './models/tab-rotate';
 
-// will automatically start based on the json config
 const tabRotator = new TabRotator();
-// tabRotator.start();
+tabRotator.start();
 
 tabRotator.StatusChanged.subscribe(status => {
   if (status.status !== 'error') {

@@ -58,9 +58,7 @@ export class TabRotator {
     ).subscribe(config => {
       this._config = config;
       this._initialized = true;
-      if (this._config.autoStart) {
-        this.start();
-      }
+      this.start();
     });
 
     this._options.load();
