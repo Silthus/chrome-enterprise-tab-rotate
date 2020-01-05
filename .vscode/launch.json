@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
+            "url": "chrome-extension://dcccelmacpbbpdamagkhmkglinjgicde/_generated_background_page.html",
             "webRoot": "${workspaceFolder}"
         }
     ]

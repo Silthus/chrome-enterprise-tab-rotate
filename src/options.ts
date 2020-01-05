@@ -1,6 +1,7 @@
 import * as $ from 'jquery';
-import { OPTIONS } from './background';
-import { ConfigProperty } from './models/config';
+import { ConfigProperty, Config } from './models/config';
+
+const OPTIONS = new Config();
 
 // Saves options to chrome.storage.sync.
 function save_options() {

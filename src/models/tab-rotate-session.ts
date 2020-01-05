@@ -7,7 +7,11 @@ export class TabRotateSession {
     private _tabs: Tab[] = [];
     private _activeTabIndex: number = 0;
     private _timer: NodeJS.Timeout;
-    private _paused: boolean = false;
+    paused: boolean;
+
+    public get isActive() {
+        return !this.paused && this._timer !== undefined;
+    }
 
     private get nextTabIndex(): number {
         let nextTabIndex = this._activeTabIndex + 1;
@@ -17,17 +21,15 @@ export class TabRotateSession {
 
     constructor(config: TabRotationConfig) {
         this._config = config;
-        this.load();
     }
 
-    private load() {
+    load(): Promise<Tab[]> {
+        const result: Promise<Tab>[] = [];
         this._config.websites.forEach((website, i) => {
-            this._tabs[i] = new Tab(website, {
-                lazyLoad: this._config.lazyLoadTabs,
-                index: i,
-                active: i === this._activeTabIndex
-            });
-        })
+            this._tabs[i] = new Tab(website);
+            result.push(this._tabs[i].load());
+        });
+        return Promise.all(result);
     }
 
     start() {
@@ -37,8 +39,8 @@ export class TabRotateSession {
             return;
         }
         if (this._tabs.length < 1) this.load();
-        if (this._paused) {
-            this._paused = false;
+        if (this.paused) {
+            this.paused = false;
             this.rotateTab(true);
             return;
         }
@@ -52,7 +54,7 @@ export class TabRotateSession {
 
     pause() {
         clearTimeout(this._timer);
-        this._paused = true;
+        this.paused = true;
     }
 
     stop() {
@@ -63,12 +65,13 @@ export class TabRotateSession {
     }
 
     private rotateTab(scheduleNextRotation?: boolean) {
+        console.log("rotating tab: currentIndex: " + this._activeTabIndex + " - nextIndex: " + this.nextTabIndex);
         const nextTabIndex = this.nextTabIndex;
         const duration = this._tabs[nextTabIndex].activate();
         this._activeTabIndex = nextTabIndex;
 
         if (scheduleNextRotation) {
-            this._timer = setTimeout(() => this.rotateTab(!this._paused), duration);
+            this._timer = setTimeout(() => this.rotateTab(!this.paused), duration);
         }
     }
 }

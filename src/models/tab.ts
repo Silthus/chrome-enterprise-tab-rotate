@@ -14,7 +14,7 @@ export class Tab implements Website {
   lastReload: Moment;
 
   get tabDeactivationTime(): Moment {
-      return this.activationTime.add(this.duration, 'seconds') || moment.utc();
+    return this.activationTime.add(this.duration, 'seconds') || moment.utc();
   }
 
   private _tabCallback = (tab: chrome.tabs.Tab) => {
@@ -24,34 +24,29 @@ export class Tab implements Website {
   };
 
   constructor(
-    website: Website,
-    options?: { index?: number; active?: boolean; lazyLoad?: boolean }
+    website: Website
   ) {
     this.url = website.url;
     this.duration = website.duration;
     this.tabReloadIntervalSeconds = website.tabReloadIntervalSeconds;
-
-    if (options.lazyLoad) {
-        chrome.tabs.create({index: options.index}, this._tabCallback);
-    } else {
-        this.lastReload = moment.utc();
-        chrome.tabs.create(
-            {
-            url: this.url,
-            index: options.index,
-            active: options.active
-            },
-            this._tabCallback
-        );
-    }
   }
 
-  private load() {
-    if (this.id) {
-        chrome.tabs.update(this.id, { url: this.url }, this._tabCallback);
-    } else {
-        chrome.tabs.update({ url: this.url }, this._tabCallback);
-    }
+  public load(options: { index?: number; active?: boolean; lazyLoad?: boolean } = { active: false, lazyLoad: true, index: undefined }): Promise<Tab> {
+    return new Promise<Tab>((resolve, reject) => {
+      if (this.id) {
+        chrome.tabs.update(this.id, { url: this.url, active: options.active }, (tab) => {
+          this._tabCallback(tab);
+          this.lastReload = moment.utc();
+          resolve(this);
+        });
+      } else {
+        chrome.tabs.create({ index: this.index, url: options.lazyLoad && !options.active ? null : this.url, active: options.active }, (tab) => {
+          this._tabCallback(tab);
+          if (!options.lazyLoad || options.active) this.lastReload = moment.utc();
+          resolve(this);
+        });
+      }
+    });
   }
 
   /**
@@ -60,12 +55,12 @@ export class Tab implements Website {
   public activate(): number {
     if (this.isReloadRequired()) this.load();
     if (!this.id) {
-        console.error("Unable to load tab " + this.url + ". No ID!");
-        return;
+      console.error("Unable to load tab " + this.url + ". No ID!");
+      return;
     }
 
     this.activationTime = moment.utc();
-    chrome.tabs.update(this.id, {active: true});
+    chrome.tabs.update(this.id, { active: true });
     return this.duration * 1000;
   }
 
@@ -74,7 +69,7 @@ export class Tab implements Website {
   }
 
   isReloadRequired(): boolean {
-      return !this.loaded 
-        || this.lastReload.add(this.tabReloadIntervalSeconds, 'seconds') > moment.utc();
+    return !this.loaded
+      || this.lastReload.add(this.tabReloadIntervalSeconds, 'seconds') > moment.utc();
   }
 }

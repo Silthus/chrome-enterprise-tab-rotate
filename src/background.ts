@@ -10,6 +10,48 @@ import {
 import { interval, timer, of } from 'rxjs';
 import { TabRotator } from './models/tab-rotate';
 
-export const OPTIONS = new Config();
+const tabRotator = new TabRotator();
+tabRotator.start();
 
-new TabRotator()
+tabRotator.StatusChanged.subscribe(status => {
+  if (status.status !== 'error') {
+    configureContextMenu(tabRotator);
+  }
+})
+
+function configureContextMenu(tabRotator: TabRotator) {
+  chrome.contextMenus.removeAll();
+  chrome.contextMenus.create({
+    id: 'start_stop',
+    title: tabRotator.isStarted ? "Stop" : "Start",
+    contexts: ["browser_action"],
+    onclick: () => {
+      if (tabRotator.isStarted) {
+        tabRotator.stop();
+        chrome.contextMenus.update('start_stop', {title: 'Start'});
+      } else {
+        tabRotator.start();
+        chrome.contextMenus.update('start_stop', {title: 'Stop'});
+      }
+    }
+  });
+  chrome.contextMenus.create({
+    id: 'pause_resume',
+    title: "Pause",
+    contexts: ["browser_action"],
+    onclick: () => {
+      if (tabRotator.isPaused) {
+        tabRotator.resume();
+        chrome.contextMenus.update('pause_resume', {title: 'Pause'});
+      } else {
+        tabRotator.pause();
+        chrome.contextMenus.update('pause_resume', {title: 'Resume'});
+      }
+    }
+  });
+  chrome.contextMenus.create({
+    title: "Reload",
+    contexts: ["browser_action"],
+    onclick: () => tabRotator.reload(),
+  });
+}
