@@ -1,8 +1,7 @@
-import { Subject, Observable, empty, from, throwError, of } from 'rxjs';
-import { map, retryWhen, delay, take, concat, concatMap, shareReplay } from 'rxjs/operators';
+import { Subject, Observable, empty, throwError } from 'rxjs';
+import { map, retryWhen, delay, take, concat } from 'rxjs/operators';
 import { clean, getJSON } from '../util';
 import { CONFIG_UPDATED_MESSAGE } from './messages';
-import * as jQuery from 'jquery';
 
 export class Config {
   ConfigPropertyLoaded: Subject<ConfigProperty> = new Subject<ConfigProperty>();

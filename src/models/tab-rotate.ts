@@ -1,6 +1,6 @@
 import { Config, TabRotationConfig } from './config';
 import { CONFIG_UPDATED_MESSAGE } from './messages';
-import { tap, switchMap, catchError, delay, repeat } from 'rxjs/operators';
+import { tap, switchMap, catchError } from 'rxjs/operators';
 import { timer, of, Subject, Observable } from 'rxjs';
 import { TabRotateSession } from './tab-rotate-session';
 
@@ -35,7 +35,7 @@ export class TabRotator {
 
   constructor() {
 
-    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    chrome.runtime.onMessage.addListener((message) => {
     if (message === CONFIG_UPDATED_MESSAGE) {
         this._options.load();
     }
@@ -56,9 +56,13 @@ export class TabRotator {
         )
       )
     ).subscribe(config => {
+      console.log("Loaded remote config:");
+      console.log(config);
       this._config = config;
       this._initialized = true;
-      this.start();
+      if (this._config.autoStart) {
+        this.start();
+      }
     });
 
     this._options.load();

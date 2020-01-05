@@ -1,4 +1,4 @@
-import { of, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import * as jQuery from 'jquery';
 
 export function clean(obj) {

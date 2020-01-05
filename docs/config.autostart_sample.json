@@ -1,0 +1,27 @@
+{
+    "autoStart": true,
+    "fullscreen": true,
+    "lazyLoadTabs": true,
+    "websites": [
+        {
+            "url": "https://github.com/Silthus/chrome-enterprise-tab-rotate",
+            "duration": 10,
+            "tabReloadIntervalSeconds": 60
+        },
+        {
+            "url": "chrome-extension://pjgjpabbgnnoohijnillgbckikfkbjed/src/settings.html",
+            "duration": 10,
+            "tabReloadIntervalSeconds": 15
+        },
+        {
+            "url": "https://michaelreichenbach.de/",
+            "duration": 10,
+            "tabReloadIntervalSeconds": 300
+        },
+        {
+            "url": "https://chrome.google.com/webstore/detail/tab-rotate/pjgjpabbgnnoohijnillgbckikfkbjed",
+            "duration": 10,
+            "tabReloadIntervalSeconds": 15
+        }
+    ]
+}

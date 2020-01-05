@@ -1,12 +1,12 @@
 import { TabRotator } from './models/tab-rotate';
 
+// will autostart based on json config
 const tabRotator = new TabRotator();
-tabRotator.start();
+configureContextMenu(tabRotator);
+// tabRotator.start();
 
 tabRotator.StatusChanged.subscribe(status => {
-  if (status.status !== 'error') {
-    configureContextMenu(tabRotator);
-  }
+  configureContextMenu(tabRotator);
 })
 
 function configureContextMenu(tabRotator: TabRotator) {
