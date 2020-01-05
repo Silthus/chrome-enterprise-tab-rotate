@@ -4,6 +4,7 @@ import { tap, switchMap, catchError, filter, map } from 'rxjs/operators';
 import { timer, of, Subject, Observable } from 'rxjs';
 import { TabRotateSession } from './tab-rotate-session';
 import deepEqual from 'deep-equal';
+import { Tab } from './tab';
 
 export interface TabRotationStatus {
   status: 'running' | 'stopped' | 'error' | 'paused' | 'waiting';
@@ -44,7 +45,7 @@ export class TabRotator {
 
     this._options.ConfigLoaded.pipe(
       tap(config => {
-        console.log("loaded tab rotate config:")
+        console.log("loaded tab rotate config... - reload interval: " + +config.reload_interval * 1000 + "ms")
         console.log(config);
       }),
       switchMap(config =>

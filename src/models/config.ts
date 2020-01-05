@@ -32,9 +32,15 @@ export class Config {
 
   public load() {
     this.loadDefaults();
-    chrome.storage.sync.get(items => this.loadConfig(items, 'local'));
-    chrome.storage.managed.get(items => this.loadConfig(items, 'managed'));
-    this.ConfigLoaded.next(this);
+    const localStorage = new Promise((resolve) => chrome.storage.sync.get(items => {
+      this.loadConfig(items, 'local');
+      resolve();
+    }));
+    const managedStorage = new Promise((resolve) => chrome.storage.sync.get(items => {
+      this.loadConfig(items, 'managed');
+      resolve();
+    }));
+    Promise.all([localStorage, managedStorage]).then(() => this.ConfigLoaded.next(this));
   }
 
   public update(config: { [key: string]: any }) {
