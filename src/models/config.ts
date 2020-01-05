@@ -90,6 +90,7 @@ export interface ConfigProperty {
 }
 
 export interface TabRotationConfig {
+  autoStart: boolean;
   fullscreen: boolean;
   lazyLoadTabs: boolean;
   websites: Website[];

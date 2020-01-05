@@ -39,6 +39,9 @@ export class TabRotateSession {
             return;
         }
         if (this._tabs.length < 1) this.load();
+
+        this.setFullscreen(this._config.fullscreen);
+        
         if (this.paused) {
             this.paused = false;
             this.rotateTab(true);
@@ -55,6 +58,7 @@ export class TabRotateSession {
     pause() {
         clearTimeout(this._timer);
         this.paused = true;
+        this.setFullscreen(false);
     }
 
     stop() {
@@ -62,6 +66,7 @@ export class TabRotateSession {
         this._tabs.forEach(tab => tab.close());
         this._tabs = [];
         this._activeTabIndex = 0;
+        this.setFullscreen(false);
     }
 
     private rotateTab(scheduleNextRotation?: boolean) {
@@ -73,5 +78,11 @@ export class TabRotateSession {
         if (scheduleNextRotation) {
             this._timer = setTimeout(() => this.rotateTab(!this.paused), duration);
         }
+    }
+
+    private setFullscreen(fullscreen?: boolean) {
+        chrome.windows.getCurrent({}, window => {
+            chrome.windows.update(window.id, { state: fullscreen ? 'fullscreen' : 'normal' });
+        });
     }
 }
