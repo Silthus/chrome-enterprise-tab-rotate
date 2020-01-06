@@ -5,6 +5,10 @@
   "description": "Chrome Extensions to rotate tabs based on a JSON config loaded from a remote url. Designed to be configured by group policies.",
   "version": "1.0.0",
 
+  "icons": {
+    "128": "icon_128.png"
+  },
+
   "options_ui": {
     "page": "options.html",
     "chrome_style": true
