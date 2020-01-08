@@ -1,4 +1,4 @@
-import { Subject, Observable, empty, throwError, of } from 'rxjs';
+import { Subject, Observable, empty, throwError, of, iif } from 'rxjs';
 import { map, retryWhen, delay, take, concat } from 'rxjs/operators';
 import { clean, getJSON } from '../util';
 import { CONFIG_UPDATED_MESSAGE } from './messages';
@@ -21,7 +21,7 @@ export class Config {
 
     const isLocalConfig = () => this.url === undefined || this.url === null || this.url === '' || this.source === 'local';
 
-    return Observable.if(isLocalConfig,
+    return iif(isLocalConfig,
       of(this.config),
       getJSON(this.url).pipe(
         map<any, TabRotationConfig>(response => response),
