@@ -16,8 +16,6 @@
     "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
   },
   "dependencies": {
-    "@types/deep-equal": "^1.0.1",
-    "@types/jqueryui": "^1.12.10",
     "deep-equal": "^2.0.1",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
@@ -28,6 +26,8 @@
     "@types/chrome": "0.0.91",
     "@types/jest": "^24.0.23",
     "@types/jquery": "^3.3.31",
+    "@types/deep-equal": "^1.0.1",
+    "@types/jqueryui": "^1.12.10",
     "copy-webpack-plugin": "^5.0.5",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",

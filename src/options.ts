@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-ui';
 import { ConfigProperty, Config } from './models/config';
 
 const OPTIONS = new Config();
@@ -56,4 +57,3 @@ $('#tabs').tabs();
 $('#status').hide();
 $('#save').click(save_options);
 $(restore_options);
-
