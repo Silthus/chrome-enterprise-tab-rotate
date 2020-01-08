@@ -1,4 +1,5 @@
-import { Config, TabRotationConfig } from './config';
+import { Config } from './config';
+import { TabRotationConfig } from "./tab-rotation-config";
 import { CONFIG_UPDATED_MESSAGE } from './messages';
 import { tap, switchMap, catchError, filter, map } from 'rxjs/operators';
 import { timer, of, Subject, Observable } from 'rxjs';

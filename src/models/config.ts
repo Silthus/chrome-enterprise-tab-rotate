@@ -2,6 +2,7 @@ import { Subject, Observable, empty, throwError } from 'rxjs';
 import { map, retryWhen, delay, take, concat } from 'rxjs/operators';
 import { clean, getJSON } from '../util';
 import { CONFIG_UPDATED_MESSAGE } from './messages';
+import { TabRotationConfig } from './tab-rotation-config';
 
 export class Config {
   ConfigPropertyLoaded: Subject<ConfigProperty> = new Subject<ConfigProperty>();
@@ -92,19 +93,6 @@ export interface ConfigProperty {
   value: string | number;
   old_value: string | number;
   type: ConfigType;
-}
-
-export interface TabRotationConfig {
-  autoStart: boolean;
-  fullscreen: boolean;
-  lazyLoadTabs: boolean;
-  websites: Website[];
-}
-
-export interface Website {
-  url: string;
-  duration: number;
-  tabReloadIntervalSeconds: number;
 }
 
 export type ConfigType = 'default' | 'local' | 'managed';

@@ -1,4 +1,4 @@
-import { TabRotationConfig } from "./config";
+import { TabRotationConfig } from "./tab-rotation-config";
 import { Tab } from "./tab";
 
 export class TabRotateSession {

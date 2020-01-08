@@ -1,4 +1,4 @@
-import { Website } from './config';
+import { Website } from "./tab-rotation-config";
 import { Moment } from 'moment';
 import moment = require('moment');
 
