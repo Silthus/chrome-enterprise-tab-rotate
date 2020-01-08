@@ -1,4 +1,4 @@
-import { Subject, Observable, empty, throwError } from 'rxjs';
+import { Subject, Observable, empty, throwError, of } from 'rxjs';
 import { map, retryWhen, delay, take, concat } from 'rxjs/operators';
 import { clean, getJSON } from '../util';
 import { CONFIG_UPDATED_MESSAGE } from './messages';
@@ -9,23 +9,28 @@ export class Config {
   ConfigLoaded: Subject<Config> = new Subject<Config>();
   ConfigSaved: Subject<Config> = new Subject<Config>();
 
+  source: ConfigSource = 'remote';
   url: string =
     'https://raw.githubusercontent.com/Silthus/chrome-enterprise-tab-rotate/master/docs/config.sample.json';
   retry_count: number = 6;
   retry_interval: number = 10;
   reload_interval: number = 60;
+  config: TabRotationConfig;
 
   public getTabRotationConfig(): Observable<TabRotationConfig> {
-    if (this.url === undefined || this.url === null || this.url === '') {
-      return empty();
-    }
-    return getJSON(this.url).pipe(
-      map<any, TabRotationConfig>(response => response),
-      retryWhen(errors =>
-        errors.pipe(
-          delay(+this.retry_interval * 1000),
-          take(+this.retry_count),
-          concat(throwError('Error fetching config from ' + this.url + ' after ' + this.retry_count + ' retries...'))
+
+    const isLocalConfig = () => this.url === undefined || this.url === null || this.url === '' || this.source === 'local';
+
+    return Observable.if(isLocalConfig,
+      of(this.config),
+      getJSON(this.url).pipe(
+        map<any, TabRotationConfig>(response => response),
+        retryWhen(errors =>
+          errors.pipe(
+            delay(+this.retry_interval * 1000),
+            take(+this.retry_count),
+            concat(throwError('Error fetching config from ' + this.url + ' after ' + this.retry_count + ' retries...'))
+          )
         )
       )
     );
@@ -45,7 +50,7 @@ export class Config {
   }
 
   public update(config: { [key: string]: any }) {
-    for(let [key, value] of Object.entries(config)) {
+    for (let [key, value] of Object.entries(config)) {
       this[key] = value;
     }
     this.save();
@@ -96,3 +101,5 @@ export interface ConfigProperty {
 }
 
 export type ConfigType = 'default' | 'local' | 'managed';
+
+export type ConfigSource = 'local' | 'remote';

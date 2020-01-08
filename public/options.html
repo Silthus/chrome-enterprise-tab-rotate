@@ -118,34 +118,51 @@
 </head>
 
 <body>
-  <form class="form-style-7">
+  <div id="tabs">
     <ul>
-      <li>
-        <label for="url">URL</label>
-        <input id="url" type="url" name="url">
-        <span id="url_managed_val"></span>
-      </li>
-      <li>
-        <label for="retry_count">Retry count</label>
-        <input id="retry_count" type="number" name="retry_count" min="-1">
-        <span id="retry_count_managed_val"></span>
-      </li>
-      <li>
-        <label for="retry_interval">Retry interval</label>
-        <input id="retry_interval" type="number" name="retry_interval" min="-1">
-        <span id="retry_interval_managed_val"></span>
-      </li>
-      <li>
-        <label for="reload_interval">Reload interval</label>
-        <input id="reload_interval" type="number" name="reload_interval" min="-1">
-        <span id="reload_interval_managed_val"></span>
-      </li>
-      <li>
-        <input id="save" type="button" value="Save">
-        <span id="status"></span>
-      </li>
+      <li><a href="#remote">Remote Config</a></li>
+      <li><a href="#local">Local Config</a></li>
     </ul>
-  </form>
+    <form class="form-style-7">
+      <div id="remote">
+        <ul>
+          <li>
+            <label for="url">URL</label>
+            <input id="url" type="url" name="url">
+            <span id="url_managed_val"></span>
+          </li>
+          <li>
+            <label for="retry_count">Retry count</label>
+            <input id="retry_count" type="number" name="retry_count" min="-1">
+            <span id="retry_count_managed_val"></span>
+          </li>
+          <li>
+            <label for="retry_interval">Retry interval</label>
+            <input id="retry_interval" type="number" name="retry_interval" min="-1">
+            <span id="retry_interval_managed_val"></span>
+          </li>
+          <li>
+            <label for="reload_interval">Reload interval</label>
+            <input id="reload_interval" type="number" name="reload_interval" min="-1">
+            <span id="reload_interval_managed_val"></span>
+          </li>
+          <li>
+            <input id="save" type="button" value="Save">
+            <span id="status"></span>
+          </li>
+        </ul>
+      </div>
+      <div id="local">
+        <ul>
+          <li>
+            <label for="config">Local Config</label>
+            <textarea id="config" name="config" onkeyup="adjust_textarea(this)"></textarea>
+            <span id="config_managed_val"></span>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
 
   <script src="js/options.js"></script>
 </body>

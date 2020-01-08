@@ -47,6 +47,13 @@ function update_options_gui(prop: ConfigProperty) {
   if (prop.type === 'local') $('#' + prop.key + '_managed_val').hide();
 }
 
+function adjust_textarea(h) {
+  h.style.height = "20px";
+  h.style.height = (h.scrollHeight) + "px";
+}
+
+$('#tabs').tabs();
 $('#status').hide();
 $('#save').click(save_options);
 $(restore_options);
+

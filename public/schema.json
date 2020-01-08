@@ -1,6 +1,11 @@
 {
   "type": "object",
   "properties": {
+    "source": {
+      "type": "string",
+      "title": "Config type.",
+      "description": "LOCAL or URL (default). You can load a config from a URL or use the config section for a local config."
+    },
     "url": {
       "type": "string",
       "title": "Config url.",
@@ -20,6 +25,46 @@
         "type": "integer",
         "title": "Reload interval in seconds (default: 60s)",
         "description": "How often should we reload the config and check if there were any changes."
+    },
+    "config": {
+      "type": "object",
+      "title": "Local config.",
+      "description": "You can specify a direct config that is loaded by the plugin. You need to set ConfigType to LOCAL.",
+      "properties": {
+        "autoStart": {
+          "title": "Autostart tab rotation.",
+          "description": "If set to true the plugin will automatically start rotating the configured tabs when chrome starts.",
+          "type": "boolean"
+        },
+        "lazyLoadTabs": {
+          "title": "Lazy load tabs.",
+          "description": "If set to true will only load two tabs and the rest async in the background.",
+          "type": "boolean"
+        },
+        "fullscreen": {
+          "title": "Fullscreen mode.",
+          "description": "If set to true will enter fullscreen after starting.",
+          "type": "boolean"
+        },
+        "websites": {
+          "type": "array",
+          "id": "ListOfWebsites",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "integer"
+              },
+              "tabReloadIntervalSeconds": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
