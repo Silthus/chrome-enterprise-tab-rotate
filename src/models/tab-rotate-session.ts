@@ -24,6 +24,9 @@ export class TabRotateSession {
     }
 
     load(): Promise<Tab[]> {
+        console.log("loading tab rotate session:");
+        console.log(this._config);
+        
         const result: Promise<Tab>[] = [];
         this._config.websites.forEach((website, i) => {
             this._tabs[i] = new Tab(website);

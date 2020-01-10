@@ -61,8 +61,6 @@ export class TabRotator {
       map(config => config as TabRotationConfig),
       filter(config => !deepEqual(this._config, config))
     ).subscribe(config => {
-      console.log("Loaded remote config:");
-      console.log(config);
       this._config = config;
       
       if (this._config.autoStart) {

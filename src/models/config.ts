@@ -4,6 +4,14 @@ import { clean, getJSON } from '../util';
 import { CONFIG_UPDATED_MESSAGE } from './messages';
 import { TabRotationConfig } from './tab-rotation-config';
 
+const DEFAULT_CONFIG = {
+  source: 'remote',
+  url: 'https://raw.githubusercontent.com/Silthus/chrome-enterprise-tab-rotate/master/docs/config.sample.json',
+  retry_count: 6,
+  retry_interval: 10,
+  reload_interval: 60
+}
+
 export class Config {
   ConfigPropertyLoaded: Subject<ConfigProperty> = new Subject<ConfigProperty>();
   ConfigLoaded: Subject<Config> = new Subject<Config>();
@@ -42,7 +50,7 @@ export class Config {
       this.loadConfig(items, 'local');
       resolve();
     }));
-    const managedStorage = new Promise((resolve) => chrome.storage.sync.get(items => {
+    const managedStorage = new Promise((resolve) => chrome.storage.managed.get(items => {
       this.loadConfig(items, 'managed');
       resolve();
     }));
@@ -63,7 +71,9 @@ export class Config {
         url: this.url,
         retry_count: this.retry_count,
         retry_interval: this.retry_interval,
-        reload_interval: this.reload_interval
+        reload_interval: this.reload_interval,
+        source: this.source,
+        config: this.config
       },
       () => {
         this.ConfigSaved.next(this);
@@ -73,13 +83,16 @@ export class Config {
   }
 
   private loadDefaults() {
-    this.loadConfig(this, "default");
+    this.loadConfig(DEFAULT_CONFIG, "default");
   }
 
   private loadConfig(items: { [key: string]: any }, type: ConfigType) {
     const defaultConfig = new Config();
 
     clean(items);
+
+    console.log("loaded " + type + " config:");
+    console.log(items);
 
     for (let [key, value] of Object.entries(items)) {
       this.ConfigPropertyLoaded.next({
