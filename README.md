@@ -1,6 +1,6 @@
 # Chrome Enterprise Tab Rotate Extension
 
-[![build status](https://github.com/silthus/chrome-enterprise-tab-rotate/workflows/Node%20CI/badge.svg)](https://github.com/Silthus/chrome-enterprise-tab-rotate/actions)
+[![build status](https://github.com/silthus/chrome-enterprise-tab-rotate/workflows/Node%20CI/badge.svg)](https://github.com/Silthus/chrome-enterprise-tab-rotate/actions)[![Greenkeeper badge](https://badges.greenkeeper.io/Silthus/chrome-enterprise-tab-rotate.svg)](https://greenkeeper.io/)
 
 Chrome tab rotation for enterprises based on a JSON config and configured by policies.
 
