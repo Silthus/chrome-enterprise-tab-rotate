@@ -1,6 +1,6 @@
 # Chrome Enterprise Tab Rotate Extension
 
-[![build status](https://img.shields.io/github/workflow/status/silthus/chrome-enterprise-tab-rotate/Node%20CI)](https://github.com/Silthus/chrome-enterprise-tab-rotate/actions) [![Known Vulnerabilities](https://snyk.io/test/github/Silthus/chrome-enterprise-tab-rotate/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Silthus/chrome-enterprise-tab-rotate?targetFile=package.json)
+[![build status](https://img.shields.io/github/workflow/status/silthus/chrome-enterprise-tab-rotate/Node%20CI)](https://github.com/Silthus/chrome-enterprise-tab-rotate/actions) [![Coverage Status](https://coveralls.io/repos/github/Silthus/chrome-enterprise-tab-rotate/badge.svg?branch=master)](https://coveralls.io/github/Silthus/chrome-enterprise-tab-rotate?branch=master) [![Known Vulnerabilities](https://snyk.io/test/github/Silthus/chrome-enterprise-tab-rotate/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Silthus/chrome-enterprise-tab-rotate?targetFile=package.json)
 
 Chrome tab rotation for enterprises based on a JSON config and configured by policies.
 
