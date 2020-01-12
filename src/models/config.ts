@@ -2,7 +2,7 @@ import { Subject, Observable, empty, throwError, of, iif } from 'rxjs';
 import { map, retryWhen, delay, take, concat } from 'rxjs/operators';
 import { clean, getJSON } from '../util';
 import { CONFIG_UPDATED_MESSAGE } from './messages';
-import { TabRotationConfig } from './tab-rotation-config';
+import { ITabRotationConfig } from './tab-rotation-config';
 
 const DEFAULT_CONFIG = {
   source: 'remote',
@@ -23,16 +23,16 @@ export class Config {
   retry_count: number = 6;
   retry_interval: number = 10;
   reload_interval: number = 60;
-  config: TabRotationConfig;
+  config: ITabRotationConfig;
 
-  public getTabRotationConfig(): Observable<TabRotationConfig> {
+  public getTabRotationConfig(): Observable<ITabRotationConfig> {
 
     const isLocalConfig = () => this.url === undefined || this.url === null || this.url === '' || this.source === 'local';
 
     return iif(isLocalConfig,
       of(this.config),
       getJSON(this.url).pipe(
-        map<any, TabRotationConfig>(response => response),
+        map<any, ITabRotationConfig>(response => response),
         retryWhen(errors =>
           errors.pipe(
             delay(+this.retry_interval * 1000),

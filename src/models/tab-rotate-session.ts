@@ -1,9 +1,9 @@
-import { TabRotationConfig } from "./tab-rotation-config";
+import { ITabRotationConfig } from "./tab-rotation-config";
 import { Tab } from "./tab";
 
 export class TabRotateSession {
 
-    private _config: TabRotationConfig;
+    private _config: ITabRotationConfig;
     private _tabs: Tab[] = [];
     private _activeTabIndex: number = 0;
     private _timer: NodeJS.Timeout;
@@ -19,7 +19,7 @@ export class TabRotateSession {
         return nextTabIndex;
     }
 
-    constructor(config: TabRotationConfig) {
+    constructor(config: ITabRotationConfig) {
         this._config = config;
     }
 
