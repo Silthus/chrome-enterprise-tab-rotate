@@ -70,6 +70,6 @@ export class Tab implements IWebsite {
 
   isReloadRequired(): boolean {
     return !this.loaded
-      || this.lastReload.add(this.tabReloadIntervalSeconds, 'seconds') > moment.utc();
+      || this.lastReload.add(this.tabReloadIntervalSeconds, 'seconds') < moment.utc();
   }
 }
