@@ -8,7 +8,7 @@
     "build": "webpack --config webpack/webpack.prod.js",
     "clean": "rimraf dist",
     "test": "npx jest --coverage",
-    "test:ci": "npx jest --coverage --ci --testLocationInResults --outputFile=test_results.json --json"
+    "test:ci": "npx jest --coverage --coverageReporters=text-lcov --ci --testLocationInResults --outputFile=test_results.json --json"
   },
   "author": "",
   "license": "MIT",
@@ -29,6 +29,7 @@
     "@types/jquery": "^3.3.31",
     "@types/sinon-chrome": "^2.2.6",
     "copy-webpack-plugin": "^5.0.5",
+    "coveralls": "^3.0.9",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
     "sinon-chrome": "^3.0.1",
