@@ -1,8 +1,8 @@
-import { Website } from "./tab-rotation-config";
+import { IWebsite } from "./tab-rotation-config";
 import { Moment } from 'moment';
 import moment = require('moment');
 
-export class Tab implements Website {
+export class Tab implements IWebsite {
   url: string;
   duration: number = 10;
   tabReloadIntervalSeconds: number = 10;
@@ -24,7 +24,7 @@ export class Tab implements Website {
   };
 
   constructor(
-    website: Website
+    website: IWebsite
   ) {
     this.url = website.url;
     this.duration = website.duration;
@@ -70,6 +70,6 @@ export class Tab implements Website {
 
   isReloadRequired(): boolean {
     return !this.loaded
-      || this.lastReload.add(this.tabReloadIntervalSeconds, 'seconds') > moment.utc();
+      || this.lastReload.add(this.tabReloadIntervalSeconds, 'seconds') < moment.utc();
   }
 }
