@@ -4,3 +4,5 @@ dist/
 tmp/
 *.crx
 *.pem
+coverage/
+test_results.json
