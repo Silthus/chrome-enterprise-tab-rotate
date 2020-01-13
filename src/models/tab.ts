@@ -31,7 +31,7 @@ export class Tab implements IWebsite {
     this.tabReloadIntervalSeconds = website.tabReloadIntervalSeconds;
   }
 
-  public load(options: { index?: number; active?: boolean; lazyLoad?: boolean } = { active: false, lazyLoad: true, index: undefined }): Promise<Tab> {
+  public load(options: { active?: boolean; lazyLoad?: boolean } = { active: false, lazyLoad: true }): Promise<Tab> {
     return new Promise<Tab>((resolve, reject) => {
       if (this.id) {
         chrome.tabs.update(this.id, { url: this.url, active: options.active }, (tab) => {

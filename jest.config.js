@@ -6,6 +6,6 @@ module.exports = {
         "^.+\\.ts$": "ts-jest"
     },
     "setupFiles": [
-        "<rootDir>/jest.setup.js"
+        "jest-webextension-mock"
     ]
 }; 
