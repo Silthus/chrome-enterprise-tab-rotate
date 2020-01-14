@@ -7,7 +7,7 @@ describe('tab model', () => {
 
     beforeEach(() => {
         model = new Tab({
-            url: 'http://localhost.test',
+            url: 'http://localhost.it',
             duration: 10,
             tabReloadIntervalSeconds: 10
         });
@@ -15,18 +15,18 @@ describe('tab model', () => {
 
     describe('load()', () => {
 
-        test('should call chrome.tabs.create', () => {
+        it('should call chrome.tabs.create', () => {
             model.load();
             expect(chrome.tabs.create).toHaveBeenCalled();
         });
 
-        test('should call chrome.tabs.update if tab exists', () => {
+        it('should call chrome.tabs.update if tab exists', () => {
             model.id = 1;
             model.load();
             expect(chrome.tabs.update).toHaveBeenCalled();
         });
 
-        test('should update reloadTime after update', (done) => {
+        it('should update reloadTime after update', (done) => {
             model.id = 1;
             model.load().then(() => {
                 expect(model.lastReload.unix()).toBeCloseTo(moment.utc().unix());
@@ -34,7 +34,7 @@ describe('tab model', () => {
             });
         });
 
-        test('lazy loaded tabs do not set lastReload', (done) => {
+        it('lazy loaded tabs do not set lastReload', (done) => {
             model.load({lazyLoad: true}).then(() => {
                 expect(model.lastReload).toBeUndefined();
                 done();
@@ -42,15 +42,15 @@ describe('tab model', () => {
             expect(chrome.tabs.create).toHaveBeenCalledWith({url: null, active: false, index: undefined}, expect.anything());
         });
 
-        test('should directly load tabs if lazyLoad=false', (done) => {
+        it('should directly load tabs if lazyLoad=false', (done) => {
             model.load({lazyLoad: false}).then(() => {
                 expect(model.lastReload).not.toBeUndefined();
                 done();
             });
-            expect(chrome.tabs.create).toHaveBeenCalledWith({ url: 'http://localhost.test' }, expect.anything());
+            expect(chrome.tabs.create).toHaveBeenCalledWith({ url: 'http://localhost.it' }, expect.anything());
         });
 
-        test('should set index', (done) => {
+        it('should set index', (done) => {
             model.index = 5;
             model.load().then(() => {
                 expect(model.index).toBe(5);
@@ -59,22 +59,69 @@ describe('tab model', () => {
         });
     });
 
+    describe('activate()', () => {
+
+        it('calls load() if isReloadRequired()', () => {
+            model.id = 1;
+            model.loaded =false;
+            jest.spyOn(model, 'load');
+            model.activate();
+            expect(model.load).toHaveBeenCalled();
+        });
+
+        it('throws error if id is undefined', () => {
+            model.id = undefined;
+            expect(() => model.activate()).toThrowError();
+        });
+
+        it('sets activation time', () => {
+            model.id = 1;
+            model.activate();
+            expect(model.activationTime.unix()).toBeCloseTo(moment.utc().unix());
+        });
+
+        it('calls chrome.tabs.update and activates tab', () => {
+            model.id = 1;
+            model.activate();
+            expect(chrome.tabs.update).toHaveBeenCalledWith(1, {active: true});
+        });
+    });
+
     describe('isReloadRequired()', () => {
 
-        test('reload if not loaded', () => {
+        it('reload if not loaded', () => {
             expect(model.isReloadRequired()).toBe(true);
         });
 
-        test('no reload after initial load', () => {
+        it('no reload after initial load', () => {
             model.loaded = true;
             model.lastReload = moment.utc();
             expect(model.isReloadRequired()).toBe(false);
         });
 
-        test('reload after duration', () => {
+        it('reload after duration', () => {
             model.loaded = true;
             model.lastReload = moment.utc().subtract(11, 'second');
             expect(model.isReloadRequired()).toBe(true);
+        });
+    });
+
+    describe('tabDeactivationTime', () => {
+        it('should return activation time + duration', () => {
+            model.activationTime = moment.utc();
+            expect(model.tabDeactivationTime.unix()).toBeCloseTo(moment.utc().add(model.duration, 'second').unix());
+        });
+
+        it('should return current time if not activated', () => {
+            expect(model.tabDeactivationTime.unix()).toBeCloseTo(moment.utc().unix());
+        });
+    });
+
+    describe('close()', () => {
+        it('removes tab', () => {
+            model.id = 1;
+            model.close();
+            expect(chrome.tabs.remove).toHaveBeenCalledWith(1);
         });
     });
 });

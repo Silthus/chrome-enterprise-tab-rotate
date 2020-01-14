@@ -14,7 +14,7 @@ export class Tab implements IWebsite {
   lastReload: Moment;
 
   get tabDeactivationTime(): Moment {
-    return this.activationTime.add(this.duration, 'seconds') || moment.utc();
+    return this.activationTime?.add(this.duration, 'seconds') || moment.utc();
   }
 
   private _tabCallback = (tab: chrome.tabs.Tab) => {
@@ -54,9 +54,9 @@ export class Tab implements IWebsite {
    */
   public activate(): number {
     if (this.isReloadRequired()) this.load();
-    if (!this.id) {
+    if (this.id === undefined) {
       console.error("Unable to load tab " + this.url + ". No ID!");
-      return;
+      throw new Error("Unable to load tab " + this.url + ". No ID!");
     }
 
     this.activationTime = moment.utc();
