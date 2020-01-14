@@ -1,0 +1,37 @@
+{
+    "source": {
+        "Value": "local"
+    },
+    "config": {
+        "Value": {
+            "autoStart": {
+                "Value": true
+            },
+            "fullscreen": {
+                "Value": true
+            },
+            "lazyLoadTabs": {
+                "Value": true
+            },
+            "websites": {
+                "Value": [
+                    {
+                        "url": "https://bing.com ",
+                        "duration": 30,
+                        "tabReloadIntervalSeconds": 3600
+                    },
+                    {
+                        "url": "https://duckduckgo.com",
+                        "duration": 30,
+                        "tabReloadIntervalSeconds": 3600
+                    },
+                    {
+                        "url": "https://google.com",
+                        "duration": 30,
+                        "tabReloadIntervalSeconds": 3600
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -38,10 +38,19 @@ export class TabRotator {
 
   constructor() {
 
+    console.log("new TabRotate()");
+
+    this.StatusChanged.subscribe(status => console.log(status));
+  }
+
+  public init() { 
+
+    console.log("init()");
+
     chrome.runtime.onMessage.addListener((message) => {
-    if (message === CONFIG_UPDATED_MESSAGE) {
+      if (message === CONFIG_UPDATED_MESSAGE) {
         this._options.load();
-    }
+      }
     });
 
     this._options.ConfigLoaded.pipe(
@@ -66,7 +75,7 @@ export class TabRotator {
       })
     ).subscribe(config => {
       this._config = config;
-      
+
       if (this._config.autoStart) {
         if (this._initialized) {
           this.reload();
@@ -76,7 +85,7 @@ export class TabRotator {
       } else {
         this.stop();
       }
-      
+
       this._initialized = true;
     });
 
@@ -84,6 +93,7 @@ export class TabRotator {
   }
 
   public start(): TabRotationStatus {
+    console.log("start()");
     let status: TabRotationStatus;
     if (!this._initialized) {
       status = {status: 'waiting', message: 'wating for initialization (config loading)'};
@@ -107,10 +117,13 @@ export class TabRotator {
   }
 
   public reload(): TabRotationStatus {
+    console.log("reload()");
     if (this._config === undefined) {
         return this.stop();
     } else if (!this._session) {
-      return { status: 'error', message: 'tab rotation not running - cannot reload'}
+      let status: TabRotationStatus = { status: 'error', message: 'tab rotation not running - cannot reload' };
+      this._statusChanged.next(status);
+      return status;
     }
 
     this.stop();
@@ -118,25 +131,43 @@ export class TabRotator {
   }
 
   public stop(): TabRotationStatus {
+    console.log("stop()");
     if (this._session) this._session.stop();
     this._session = undefined;
 
-    return {status: 'stopped'};
+    let status: TabRotationStatus = { status: 'stopped' };
+    this._statusChanged.next(status);
+
+    return status;
   }
 
   public pause(): TabRotationStatus {
+    console.log("pause()");
     if (this._session) {
       this._session.pause();
-      return {status: 'paused'}
+      let status: TabRotationStatus = { status: 'paused' };
+      this._statusChanged.next(status);
+      return status;
     }
-    return { status: 'error', message: 'Tab rotation not running - cannot pause'};
+
+    let status: TabRotationStatus = { status: 'error', message: 'Tab rotation not running - cannot pause' };
+    this._statusChanged.next(status);
+
+    return status;
   }
 
   public resume(): TabRotationStatus {
+    console.log("resume()");
     if (!this._session) {
-      return {status: 'error', message: 'Tab rotation not running - cannot resume'};
+
+      let status: TabRotationStatus = { status: 'error', message: 'Tab rotation not running - cannot resume' };
+      this._statusChanged.next(status);
+
+      return status;
     } else if (!this._session.paused) {
-      return {status: 'running'}
+      let status: TabRotationStatus = { status: 'running' };
+      this._statusChanged.next(status);
+      return status;
     }
     this._session.start();
   }
