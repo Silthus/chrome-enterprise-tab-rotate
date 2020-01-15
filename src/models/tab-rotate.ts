@@ -1,11 +1,9 @@
 import { Config } from './config';
 import { ITabRotationConfig, TabRotationConfig } from "./tab-rotation-config";
-import { CONFIG_UPDATED_MESSAGE } from './messages';
 import { tap, switchMap, catchError, filter, map } from 'rxjs/operators';
 import { timer, of, Subject, Observable } from 'rxjs';
 import { TabRotateSession } from './tab-rotate-session';
 import deepEqual from 'deep-equal';
-import { Tab } from './tab';
 
 export interface TabRotationStatus {
   status: 'running' | 'stopped' | 'error' | 'paused' | 'waiting';
@@ -40,18 +38,16 @@ export class TabRotator {
 
     console.log("new TabRotate()");
 
+    chrome.storage.onChanged.addListener(() => {
+      this._options.load();
+    });
+
     this.StatusChanged.subscribe(status => console.log(status));
   }
 
   public init() { 
 
     console.log("init()");
-
-    chrome.runtime.onMessage.addListener((message) => {
-      if (message === CONFIG_UPDATED_MESSAGE) {
-        this._options.load();
-      }
-    });
 
     this._options.ConfigLoaded.pipe(
       tap(config => {

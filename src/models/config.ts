@@ -1,7 +1,6 @@
-import { Subject, Observable, empty, throwError, of, iif } from 'rxjs';
+import { Subject, Observable, throwError, of, iif } from 'rxjs';
 import { map, retryWhen, delay, take, concat } from 'rxjs/operators';
 import { clean, getJSON } from '../util';
-import { CONFIG_UPDATED_MESSAGE } from './messages';
 import { ITabRotationConfig } from './tab-rotation-config';
 
 const DEFAULT_CONFIG = {
@@ -77,7 +76,6 @@ export class Config {
       },
       () => {
         this.ConfigSaved.next(this);
-        chrome.runtime.sendMessage(CONFIG_UPDATED_MESSAGE);
       }
     );
   }

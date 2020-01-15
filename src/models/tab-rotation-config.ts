@@ -22,7 +22,7 @@ export class TabRotationConfig {
 
   constructor(options?: ITabRotationConfig) {
     this._options = {...ROTATION_CONFIG_DEFAULTS, ...options};
-    if (options.websites && options.websites.length > 0) {
+    if (options.websites && options.websites?.length > 0) {
       this._options.websites = options.websites.map(website => new Website(website));
     }
   }
