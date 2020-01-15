@@ -45,57 +45,58 @@ export class TabRotator {
     this.StatusChanged.subscribe(status => console.log(status));
   }
 
-  public init() { 
+  public init(): Promise<ITabRotationConfig> { 
 
     console.log("init()");
 
-    this._options.ConfigLoaded.pipe(
-      tap(config => {
-        console.log("loaded tab rotate config... - reload interval: " + +config.reload_interval * 1000 + "ms")
-        console.log(config);
-      }),
-      switchMap(config =>
-        timer(0, +config.reload_interval * 1000).pipe(
-          switchMap(() => config.getTabRotationConfig()),
-          catchError(error => {
-            console.error(error);
-            return of(undefined);
-          })
-        )
-      ),
-      map(config => new TabRotationConfig(config)),
-      filter(config => !deepEqual(this._config, config)),
-      tap(config => {
-        console.log("reloaded website config...");
-        console.log(config);
-      })
-    ).subscribe(config => {
-      this._config = config;
+    const result = new Promise(resolve => {
+      this._options.ConfigLoaded.pipe(
+        tap(config => {
+          console.log("loaded tab rotate config... - reload interval: " + +config.reload_interval * 1000 + "ms")
+          console.log(config);
+        }),
+        switchMap(config =>
+          timer(0, +config.reload_interval * 1000).pipe(
+            switchMap(() => config.getTabRotationConfig()),
+            catchError(error => {
+              console.error(error);
+              return of(undefined);
+            })
+          )
+        ),
+        map(config => new TabRotationConfig(config)),
+        filter(config => !deepEqual(this._config, config)),
+        tap(config => {
+          console.log("reloaded website config...");
+          console.log(config);
+        })
+      ).subscribe(config => {
+        this._config = config;
 
-      if (this._config.autoStart) {
-        if (this._initialized) {
-          this.reload();
+        if (this._config.autoStart) {
+          if (this._initialized) {
+            this.reload();
+          } else {
+            this.start();
+          }
         } else {
-          this.start();
+          this.stop();
         }
-      } else {
-        this.stop();
-      }
 
-      this._initialized = true;
+        this._initialized = true;
+
+        resolve();
+      });
     });
 
     this._options.load();
+
+    return result;
   }
 
   public start(): TabRotationStatus {
     console.log("start()");
     let status: TabRotationStatus;
-    if (!this._initialized) {
-      status = {status: 'waiting', message: 'wating for initialization (config loading)'};
-      this._statusChanged.next(status);
-      return status;
-    }
 
     if (this._config === undefined) {
       status = {status: 'error', message: 'cannot start tab rotation: config is undefined.'};
