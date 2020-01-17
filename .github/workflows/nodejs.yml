@@ -24,7 +24,7 @@ jobs:
         npm run test:ci
       env:
         CI: true
-        
+
     - name: Archive Extension
       uses: actions/upload-artifact@v1
       with:
