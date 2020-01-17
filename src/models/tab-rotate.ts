@@ -45,7 +45,7 @@ export class TabRotator {
     this.StatusChanged.subscribe(status => console.log(status));
   }
 
-  public init(): Promise<ITabRotationConfig> { 
+  public init(): Promise<ITabRotationConfig> {
 
     console.log("init()");
 
