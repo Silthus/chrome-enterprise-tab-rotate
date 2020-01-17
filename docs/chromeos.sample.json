@@ -4,34 +4,21 @@
     },
     "config": {
         "Value": {
-            "autoStart": {
-                "Value": true
-            },
-            "fullscreen": {
-                "Value": true
-            },
-            "lazyLoadTabs": {
-                "Value": true
-            },
-            "websites": {
-                "Value": [
+            "autoStart": true,
+            "fullscreen": true,
+            "lazyLoadTabs": true,
+            "websites": [
                     {
-                        "url": "https://bing.com ",
-                        "duration": 30,
-                        "tabReloadIntervalSeconds": 3600
+                        "url": "https://github.com/Silthus/chrome-enterprise-tab-rotate",
+                        "duration": 10,
+                        "tabReloadIntervalSeconds": 60
                     },
                     {
-                        "url": "https://duckduckgo.com",
-                        "duration": 30,
-                        "tabReloadIntervalSeconds": 3600
-                    },
-                    {
-                        "url": "https://google.com",
-                        "duration": 30,
-                        "tabReloadIntervalSeconds": 3600
+                        "url": "https://michaelreichenbach.de/",
+                        "duration": 10,
+                        "tabReloadIntervalSeconds": 300
                     }
-                ]
-            }
+            ]
         }
     }
 }
