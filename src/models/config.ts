@@ -1,113 +1,122 @@
-import { Subject, Observable, throwError, of, iif } from 'rxjs';
-import { map, retryWhen, delay, take, concat } from 'rxjs/operators';
-import { clean, getJSON } from '../util';
-import { ITabRotationConfig } from './tab-rotation-config';
+import { Subject, Observable, throwError, of, iif } from 'rxjs'
+import { map, retryWhen, delay, take, concat } from 'rxjs/operators'
+import { clean, getJSON } from '../util'
+import { ITabRotationConfig } from './tab-rotation-config'
 
 const DEFAULT_CONFIG = {
   source: 'remote',
   url: 'https://raw.githubusercontent.com/Silthus/chrome-enterprise-tab-rotate/master/docs/config.sample.json',
-  retry_count: 6,
-  retry_interval: 10,
-  reload_interval: 60
+  retryCount: 6,
+  retryInterval: 10,
+  reloadInterval: 60
 }
 
-export class Config {
-  ConfigPropertyLoaded: Subject<ConfigProperty> = new Subject<ConfigProperty>();
+export interface IConfig {
+  source: 'remote' | 'local';
+  url: string;
+  retryCount: number;
+  retryInterval: number;
+  reloadInterval: number;
+  config: ITabRotationConfig;
+}
+
+export class Config implements IConfig {
+  ConfigPropertyLoaded: Subject<IConfigProperty> = new Subject<IConfigProperty>();
   ConfigLoaded: Subject<Config> = new Subject<Config>();
   ConfigSaved: Subject<Config> = new Subject<Config>();
 
   source: ConfigSource = 'remote';
-  url: string =
+  url =
     'https://raw.githubusercontent.com/Silthus/chrome-enterprise-tab-rotate/master/docs/config.sample.json';
-  retry_count: number = 6;
-  retry_interval: number = 10;
-  reload_interval: number = 60;
+
+  retryCount = 6;
+  retryInterval = 10;
+  reloadInterval = 60;
   config: ITabRotationConfig;
 
-  public getTabRotationConfig(): Observable<ITabRotationConfig> {
-
-    const isLocalConfig = () => this.url === undefined || this.url === null || this.url === '' || this.source === 'local';
+  public getTabRotationConfig (): Observable<ITabRotationConfig> {
+    const isLocalConfig = (): boolean => this.url === undefined || this.url === null || this.url === '' || this.source === 'local'
 
     return iif(isLocalConfig,
       of(this.config),
       getJSON(this.url).pipe(
-        map<any, ITabRotationConfig>(response => response),
+        map<unknown, ITabRotationConfig>(response => response),
         retryWhen(errors =>
           errors.pipe(
-            delay(+this.retry_interval * 1000),
-            take(+this.retry_count),
-            concat(throwError('Error fetching config from ' + this.url + ' after ' + this.retry_count + ' retries...'))
+            delay(+this.retryInterval * 1000),
+            take(+this.retryCount),
+            concat(throwError('Error fetching config from ' + this.url + ' after ' + this.retryCount + ' retries...'))
           )
         )
       )
-    );
+    )
   }
 
-  public load() {
-    this.loadDefaults();
+  public load (): void {
+    this.loadDefaults()
     const localStorage = new Promise((resolve) => chrome.storage.sync.get(items => {
-      this.loadConfig(items, 'local');
-      resolve();
-    }));
+      this.loadConfig(items, 'local')
+      resolve()
+    }))
     const managedStorage = new Promise((resolve) => chrome.storage.managed.get(items => {
-      this.loadConfig(items, 'managed');
-      resolve();
-    }));
-    Promise.all([localStorage, managedStorage]).then(() => this.ConfigLoaded.next(this));
+      this.loadConfig(items, 'managed')
+      resolve()
+    }))
+    Promise.all([localStorage, managedStorage]).then(() => this.ConfigLoaded.next(this))
   }
 
-  public update(config: { [key: string]: any }) {
-    for (let [key, value] of Object.entries(config)) {
-      this[key] = value;
+  public update (config: IConfig): void {
+    for (const [key, value] of Object.entries(config)) {
+      this[key] = value
     }
-    this.save();
-    this.load();
+    this.save()
+    this.load()
   }
 
-  public save() {
+  public save (): void {
     chrome.storage.sync.set(
       {
         url: this.url,
-        retry_count: this.retry_count,
-        retry_interval: this.retry_interval,
-        reload_interval: this.reload_interval,
+        retryCount: this.retryCount,
+        retryInterval: this.retryInterval,
+        reloadInterval: this.reloadInterval,
         source: this.source,
         config: this.config
       },
       () => {
-        this.ConfigSaved.next(this);
+        this.ConfigSaved.next(this)
       }
-    );
+    )
   }
 
-  private loadDefaults() {
-    this.loadConfig(DEFAULT_CONFIG, "default");
+  private loadDefaults (): void {
+    this.loadConfig(DEFAULT_CONFIG, 'default')
   }
 
-  private loadConfig(items: { [key: string]: any }, type: ConfigType) {
-    const defaultConfig = new Config();
+  private loadConfig (items: { [key: string]: string | number }, type: ConfigType): void  {
+    const defaultConfig = new Config()
 
-    clean(items);
+    clean(items)
 
-    console.log("loaded " + type + " config:");
-    console.log(items);
+    console.log('loaded ' + type + ' config:')
+    console.log(items)
 
-    for (let [key, value] of Object.entries(items)) {
+    for (const [key, value] of Object.entries(items)) {
       this.ConfigPropertyLoaded.next({
         key,
         value,
-        old_value: this[key],
+        oldValue: this[key],
         type: defaultConfig[key] == value ? 'default' : type
-      });
-      this[key] = value;
+      })
+      this[key] = value
     }
   }
 }
 
-export interface ConfigProperty {
+export interface IConfigProperty {
   key: string;
   value: string | number;
-  old_value: string | number;
+  oldValue: string | number;
   type: ConfigType;
 }
 
