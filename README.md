@@ -1,15 +1,18 @@
 # Chromium Enterprise Tab Rotate Extension
 
-[![build status](https://img.shields.io/github/workflow/status/silthus/chrome-enterprise-tab-rotate/Node%20CI)](https://github.com/Silthus/chrome-enterprise-tab-rotate/actions) [![Coverage Status](https://coveralls.io/repos/github/Silthus/chrome-enterprise-tab-rotate/badge.svg?branch=master)](https://coveralls.io/github/Silthus/chrome-enterprise-tab-rotate?branch=master) [![CodeFactor](https://www.codefactor.io/repository/github/silthus/chrome-enterprise-tab-rotate/badge)](https://www.codefactor.io/repository/github/silthus/chrome-enterprise-tab-rotate) [![Known Vulnerabilities](https://snyk.io/test/github/Silthus/chrome-enterprise-tab-rotate/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Silthus/chrome-enterprise-tab-rotate?targetFile=package.json) [![License](https://img.shields.io/github/license/silthus/chrome-enterprise-tab-rotate)](https://github.com/Silthus/chrome-enterprise-tab-rotate/blob/master/LICENSE)
+[![build status](https://img.shields.io/github/workflow/status/silthus/chrome-enterprise-tab-rotate/Build)](https://github.com/Silthus/chrome-enterprise-tab-rotate/actions) [![Coverage Status](https://coveralls.io/repos/github/Silthus/chrome-enterprise-tab-rotate/badge.svg?branch=master)](https://coveralls.io/github/Silthus/chrome-enterprise-tab-rotate?branch=master) [![CodeFactor](https://www.codefactor.io/repository/github/silthus/chrome-enterprise-tab-rotate/badge)](https://www.codefactor.io/repository/github/silthus/chrome-enterprise-tab-rotate) [![Known Vulnerabilities](https://snyk.io/test/github/Silthus/chrome-enterprise-tab-rotate/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Silthus/chrome-enterprise-tab-rotate?targetFile=package.json) [![License](https://img.shields.io/github/license/silthus/chrome-enterprise-tab-rotate)](https://github.com/Silthus/chrome-enterprise-tab-rotate/blob/master/LICENSE)
 
 **Enterprise Tab Rotate** takes tab rotation on Chromium based browsers to the next level. Enables zero touch deployments and easy centralized configuration through chromium policies.
 
 * Allows **local** and **remote** configs in JSON format.
 * Configurable **tab** rotation **duration** and **reload interval**.
-* **Dynamic config updates** by using reload intervals.
+* **Dynamic config updates**
 * Start/Stop/Pause/Reload context menu for **easy testing**.
-* **Auto Start** option.
+* **Auto Start** and **Fullscreen** option.
+* Config is fully compatible with KevinSheedys [chrome-tab-rotate](https://github.com/KevinSheedy/chrome-tab-rotate)
 * Configurable via **chrome://policy**
+
+[![chrome store](assets/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/enterprise-tab-rotate/phdmnkgnjkbnpmeaodonildfklccgimp)
 
 ## Getting started
 
@@ -19,17 +22,21 @@
 
 ### Installation
 
-You can install the extension directly in your current browser by going to the [Chrome Web Store](https://chrome.google.com/webstore/category/extensions) and install the `chrome-enterprise-tab-rotate` extension.
+You can install the extension directly in your current browser by going to the [Chrome Web Store](https://chrome.google.com/webstore/detail/enterprise-tab-rotate/phdmnkgnjkbnpmeaodonildfklccgimp) and install the `chrome-enterprise-tab-rotate` extension.
 
 Or you can automatically install the extension via Group Policies.
 
 ### Configuration
 
-You can define some basic settings like the config source, reload, retry and failure intervals in the options ui or via `chrome://policy`.
+The extension can be configured in many ways. Follow the links for the documentation about each configuration method.
 
-![options](docs/options.png)
+* [Manual (Local) Configuration](docs/local.md)
+* [Remote Config](docs/remote.md)
+* Windows Registry (documentation coming soon)
+* Windows Group Policies (documentation coming soon)
+* [Managed ChromeOS](docs/chromeos.md)
 
-The actual website rotation config should look like this. You can find more examples in the [`docs/`](docs/config.sample.json) directory.
+Each of these configuration methods requires a valid JSON config in the following format.
 
 ```json
 {
@@ -61,3 +68,7 @@ The actual website rotation config should look like this. You can find more exam
 | `website.duration` | `10` | How long to display the tab in seconds. |
 | `website.tabReloadIntervalSeconds` | `60` | Total time in seconds after which the website is reloaded. |
 
+## Credits
+
+* Inspiration for this extension comes from KevinSheedys [chrome-tab-rotate](https://github.com/KevinSheedy/chrome-tab-rotate)
+* Huge thanks to [@CorCornelisse](https://github.com/CorCornelisse) for testing and providing the [ChromeOS documentation](docs/chromeos.md)
