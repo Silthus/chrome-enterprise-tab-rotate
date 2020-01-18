@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Chrome Enterprise Tab Rotate",
-  "description": "Chrome Extensions to rotate tabs based on a JSON config loaded from a remote url. Designed to be configured by group policies.",
+  "name": "Enterprise Tab Rotate",
+  "description": "Rotates tabs based on remote or managed configs. Designed for companies and zero touch deployments.",
   "version": "1.0.0",
 
   "icons": {
@@ -34,7 +34,7 @@
     "storage",
     "tabs",
     "contextMenus",
-    "<all_urls>"
+    "https://www.google-analytics.com/"
   ],
 
   "storage": {

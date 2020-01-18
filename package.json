@@ -1,7 +1,4 @@
 {
-  "name": "chrome-enterprise-tab-rotate",
-  "version": "1.0.0",
-  "description": "chrome-enterprise-tab-rotate",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --config webpack/webpack.dev.js --watch",
