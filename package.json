@@ -9,11 +9,11 @@
     "semantic-release": "npx semantic-release",
     "lint": "npx eslint \"src/**\""
   },
-  "author": "",
+  "author": "Silthus",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
+    "url": "https://github.com/Silthus/chrome-enterprise-tab-rotate.git"
   },
   "dependencies": {
     "deep-equal": "^2.0.1",
