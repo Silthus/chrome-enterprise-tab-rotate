@@ -1,6 +1,6 @@
-const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
-const ExtensionReloader = require('webpack-extension-reloader');
+import merge from 'webpack-merge';
+import common from './webpack.common';
+import ExtensionReloader from 'webpack-extension-reloader';
 
 module.exports = merge(common, {
     devtool: 'inline-source-map',
