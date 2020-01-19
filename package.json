@@ -7,7 +7,7 @@
     "test": "npx jest --coverage",
     "test:ci": "npx jest --coverage --coverageReporters=lcov --ci --testLocationInResults --outputFile=test_results.json --json",
     "semantic-release": "npx semantic-release",
-    "lint": "npx eslint src/**"
+    "lint": "npx eslint \"src/**\""
   },
   "author": "",
   "license": "MIT",
