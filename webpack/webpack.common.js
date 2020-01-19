@@ -1,6 +1,6 @@
-import * as  webpack from 'webpack';
-import * as path from 'path';
-import * as CopyPlugin from 'copy-webpack-plugin';
+const webpack = require("webpack");
+const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 const srcDir = '../src/';
 
 module.exports = {
