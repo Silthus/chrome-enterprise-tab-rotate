@@ -1,27 +1,65 @@
-import { Observable } from "rxjs";
-import * as jQuery from 'jquery';
+import { Observable } from 'rxjs'
+import * as jQuery from 'jquery'
+import { TabRotator } from './models/tab-rotate'
 
-export function clean(obj) {
-  for (var propName in obj) {
-    if (obj[propName] === null || obj[propName] === undefined  || obj[propName] === '') {
-      delete obj[propName];
+export function clean (obj: object): object {
+  for (const propName in obj) {
+    if (obj[propName] === null || obj[propName] === undefined || obj[propName] === '') {
+      delete obj[propName]
     }
   }
-  return obj;
+  return obj
 }
 
-export function getJSON(url: string) {
+export function getJSON (url: string): Observable<object> {
   return Observable.create(observer => {
-    var canceled = false;
+    let canceled = false
     if (!canceled) {
       jQuery
         .getJSON(url)
         .done(data => {
-          observer.next(data);
-          observer.complete();
+          observer.next(data)
+          observer.complete()
         })
-        .fail(err => observer.error(err));
+        .fail(err => observer.error(err))
     }
-    return () => (canceled = true);
-  });
+    return (): boolean => (canceled = true)
+  })
+}
+
+export function configureContextMenu (tabRotator: TabRotator): void {
+  chrome.contextMenus.removeAll()
+  chrome.contextMenus.create({
+    id: 'start_stop',
+    title: tabRotator.isStarted ? 'Stop' : 'Start',
+    contexts: ['browser_action'],
+    onclick: () => {
+      if (tabRotator.isStarted) {
+        tabRotator.stop()
+        chrome.contextMenus.update('start_stop', { title: 'Start' })
+      } else {
+        tabRotator.start()
+        chrome.contextMenus.update('start_stop', { title: 'Stop' })
+      }
+    }
+  })
+  chrome.contextMenus.create({
+    id: 'pause_resume',
+    title: 'Pause',
+    contexts: ['browser_action'],
+    onclick: () => {
+      if (tabRotator.isPaused) {
+        tabRotator.resume()
+        chrome.contextMenus.update('pause_resume', { title: 'Pause' })
+      } else {
+        tabRotator.pause()
+        chrome.contextMenus.update('pause_resume', { title: 'Resume' })
+      }
+    }
+  })
+  chrome.contextMenus.create({
+    title: 'Reload',
+    contexts: ['browser_action'],
+    onclick: () => tabRotator.reload()
+  })
 }
