@@ -15,3 +15,5 @@ plugins:
   - 'jest'
 rules:
   '@typescript-eslint/interface-name-prefix': ["error", "always" ]
+ignorePatterns:
+  - webpack/**
