@@ -6,7 +6,8 @@ const srcDir = '../src/';
 module.exports = {
     entry: {
         background: path.join(__dirname, srcDir + 'background.ts'),
-        options: path.join(__dirname, srcDir + 'options.ts')
+        options: path.join(__dirname, srcDir + 'options.ts'),
+        analytics: path.join(__dirname, srcDir + 'import-analytics.ts')
     },
     output: {
         path: path.join(__dirname, '../dist/js'),

@@ -3,7 +3,7 @@
 
   "name": "Enterprise Tab Rotate",
   "description": "Rotates tabs based on remote or managed configs. Designed for companies and zero touch deployments.",
-  "version": "0.0.1-DEV",
+  "version": "0.0.1",
 
   "icons": {
     "128": "icon_128.png"
@@ -27,15 +27,17 @@
   },
 
   "background": {
-    "scripts": ["js/vendor.js", "js/background.js"]
+    "scripts": ["js/vendor.js", "js/background.js", "js/analytics.js"]
   },
 
   "permissions": [
     "storage",
     "tabs",
     "contextMenus",
-    "https://www.google-analytics.com/"
+    "<all_urls>"
   ],
+
+  "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
 
   "storage": {
     "managed_schema": "schema.json"

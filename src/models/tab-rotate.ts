@@ -4,6 +4,7 @@ import { tap, switchMap, catchError, filter, map } from 'rxjs/operators'
 import { timer, of, Subject, Observable } from 'rxjs'
 import { TabRotateSession } from './tab-rotate-session'
 import deepEqual from 'deep-equal'
+import analytics from '../analytics'
 
 export interface ITabRotationStatus {
   status: 'running' | 'stopped' | 'error' | 'paused' | 'waiting';
@@ -66,6 +67,7 @@ export class TabRotator {
         tap(config => {
           console.log('reloaded website config...')
           console.log(config)
+          this._options.source === 'local' ? analytics.localConfig() : analytics.remoteConfig()
         })
       ).subscribe(config => {
         this._config = config
@@ -73,14 +75,17 @@ export class TabRotator {
         if (this._config.autoStart) {
           if (this._initialized) {
             this.reload()
+            analytics.autoReload()
           } else {
             this.start()
+            analytics.autoStart();
           }
         } else {
           this.stop()
         }
 
         this._initialized = true
+        analytics.startup()
 
         resolve()
       })

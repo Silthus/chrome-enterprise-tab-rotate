@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs'
 import * as jQuery from 'jquery'
 import { TabRotator } from './models/tab-rotate'
+import analytics from './analytics'
 
 export function clean (obj: object): object {
   for (const propName in obj) {
@@ -36,9 +37,11 @@ export function configureContextMenu (tabRotator: TabRotator): void {
     onclick: () => {
       if (tabRotator.isStarted) {
         tabRotator.stop()
+        analytics.stop()
         chrome.contextMenus.update('start_stop', { title: 'Start' })
       } else {
         tabRotator.start()
+        analytics.start()
         chrome.contextMenus.update('start_stop', { title: 'Stop' })
       }
     }
@@ -50,9 +53,11 @@ export function configureContextMenu (tabRotator: TabRotator): void {
     onclick: () => {
       if (tabRotator.isPaused) {
         tabRotator.resume()
+        analytics.resume()
         chrome.contextMenus.update('pause_resume', { title: 'Pause' })
       } else {
         tabRotator.pause()
+        analytics.pause()
         chrome.contextMenus.update('pause_resume', { title: 'Resume' })
       }
     }
@@ -60,6 +65,9 @@ export function configureContextMenu (tabRotator: TabRotator): void {
   chrome.contextMenus.create({
     title: 'Reload',
     contexts: ['browser_action'],
-    onclick: () => tabRotator.reload()
+    onclick: () => {
+      tabRotator.reload()
+      analytics.reload()
+    }
   })
 }
