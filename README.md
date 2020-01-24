@@ -8,6 +8,7 @@
 * Configurable **tab** rotation **duration** and **reload interval**.
 * **Dynamic config updates**
 * Start/Stop/Pause/Reload context menu for **easy testing**.
+* **Zero touch** deployment possible.
 * **Auto Start** and **Fullscreen** option.
 * Config is fully compatible with KevinSheedys [chrome-tab-rotate](https://github.com/KevinSheedy/chrome-tab-rotate)
 * Configurable via **chrome://policy**
@@ -32,8 +33,8 @@ The extension can be configured in many ways. Follow the links for the documenta
 
 * [Manual (Local) Configuration](docs/local.md)
 * [Remote Config](docs/remote.md)
-* Windows Registry (documentation coming soon)
-* Windows Group Policies (documentation coming soon)
+* [Windows Registry](https://michaelreichenbach.de/how-to-configure-google-chrome-extensions-with-windows-gpo/)
+* [Windows Group Policies](https://michaelreichenbach.de/how-to-configure-google-chrome-extensions-with-windows-gpo/)
 * [Managed ChromeOS](docs/chromeos.md)
 
 Each of these configuration methods requires a valid JSON config in the following format.
