@@ -3,7 +3,7 @@
 
   "name": "Enterprise Tab Rotate",
   "description": "Rotates tabs based on remote or managed configs. Designed for companies and zero touch deployments.",
-  "version": "0.0.1",
+  "version": "0.0.2",
 
   "icons": {
     "128": "icon_128.png"
