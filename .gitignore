@@ -6,3 +6,4 @@ tmp/
 *.pem
 coverage/
 test_results.json
+dist.zip

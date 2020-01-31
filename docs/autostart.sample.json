@@ -9,7 +9,7 @@
             "tabReloadIntervalSeconds": 60
         },
         {
-            "url": "chrome-extension://phdmnkgnjkbnpmeaodonildfklccgimp/src/settings.html",
+            "url": "chrome://extensions/?options=phdmnkgnjkbnpmeaodonildfklccgimp",
             "duration": 10,
             "tabReloadIntervalSeconds": 15
         },

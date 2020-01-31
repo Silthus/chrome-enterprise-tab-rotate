@@ -14,13 +14,6 @@
     "chrome_style": true
   },
 
-  "content_scripts": [
-      {
-          "matches": ["<all_urls>"],
-          "js": ["js/vendor.js"]
-      }
-  ],
-
   "browser_action": {
     "default_title": "Enterprise Tab Rotate",
     "default_popup": "popup.html"
@@ -34,7 +27,7 @@
     "storage",
     "tabs",
     "contextMenus",
-    "<all_urls>"
+    "activeTab"
   ],
 
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
