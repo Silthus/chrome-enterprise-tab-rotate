@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.0.0...v1.0.1) (2020-02-03)
+
+
+### Bug Fixes
+
+* **publish:** unable to install extension ([0dc6bdb](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/0dc6bdb3d79ed551d034857637b76804bc405091)), closes [#12](https://github.com/Silthus/chrome-enterprise-tab-rotate/issues/12)
+
 # 1.0.0 (2020-02-01)
 
 
