@@ -73,3 +73,4 @@ Each of these configuration methods requires a valid JSON config in the followin
 
 * Inspiration for this extension comes from KevinSheedys [chrome-tab-rotate](https://github.com/KevinSheedy/chrome-tab-rotate)
 * Huge thanks to [@CorCornelisse](https://github.com/CorCornelisse) for testing and providing the [ChromeOS documentation](docs/chromeos.md)
+
