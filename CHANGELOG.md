@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.0.1...v1.0.2) (2020-03-04)
+
+
+### Bug Fixes
+
+* **config:** allow any url scheme in the manifest ([77d9fc6](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/77d9fc638f4b1034fadcc97b4ac2a46184baff3e)), closes [#14](https://github.com/Silthus/chrome-enterprise-tab-rotate/issues/14)
+
 ## [1.0.2](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.0.1...v1.0.2) (2020-03-03)
 
 
