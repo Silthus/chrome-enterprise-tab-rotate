@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.0.2...v1.0.3) (2020-04-14)
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([610520e](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/610520ec095a7372eec2a080c5e21a1c6684ff80))
+
 ## [1.0.2](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.0.1...v1.0.2) (2020-03-04)
 
 
