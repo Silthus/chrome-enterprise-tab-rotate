@@ -19,7 +19,7 @@
     "deep-equal": "^2.0.2",
     "jquery": "^3.5.0",
     "moment": "~2.24.0",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.5"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.6",
