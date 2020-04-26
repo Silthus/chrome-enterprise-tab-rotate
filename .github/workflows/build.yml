@@ -32,14 +32,8 @@ jobs:
     - name: install
       run: yarn install
 
-    - name: lint
-      run: yarn lint
-
     - name: build
       run: yarn build
-
-    - name: test
-      run: yarn test:ci
 
     - name: Archive Extension
       uses: actions/upload-artifact@v1
@@ -59,6 +53,56 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         parallel-finished: true
+  
+  test:
+    needs: prepare
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x, 14.x]
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        lfs: true
+
+    - name: Use node ${{ matrix.node }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node }}
+
+    - name: install
+      run: yarn install
+
+    - name: test
+      run: yarn test:ci
+
+  lint:
+    needs: prepare
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x, 14.x]
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        lfs: true
+
+    - name: Use node ${{ matrix.node }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node }}
+
+    - name: install
+      run: yarn install
+
+    - name: lint
+      run: yarn lint
 
   release:
     needs: build
