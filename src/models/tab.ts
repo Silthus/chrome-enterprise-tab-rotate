@@ -6,6 +6,7 @@ export class Tab implements IWebsite {
   url: string;
   duration = 10;
   tabReloadIntervalSeconds = 10;
+  zoom = 0.0;
 
   id: number;
   index: number;
@@ -29,6 +30,7 @@ export class Tab implements IWebsite {
     this.url = website.url
     this.duration = website.duration
     this.tabReloadIntervalSeconds = website.tabReloadIntervalSeconds
+    this.zoom = website.zoom
   }
 
   public load (options: { active?: boolean; lazyLoad?: boolean } = { active: false, lazyLoad: true }): Promise<Tab> {
@@ -46,7 +48,7 @@ export class Tab implements IWebsite {
           resolve(this)
         })
       }
-    })
+    });
   }
 
   /**
@@ -60,7 +62,9 @@ export class Tab implements IWebsite {
     }
 
     this.activationTime = moment.utc()
-    chrome.tabs.update(this.id, { active: true })
+    chrome.tabs.update(this.id, { active: true }, () => {
+      chrome.tabs.setZoom(this.zoom);
+    });
     return this.duration * 1000
   }
 

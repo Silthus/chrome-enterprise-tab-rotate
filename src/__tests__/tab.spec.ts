@@ -1,4 +1,5 @@
 import { Tab } from '../models/tab'
+import { chrome } from '@bumble/jest-chrome'
 import moment from 'moment'
 
 describe('tab model', () => {
@@ -110,14 +111,6 @@ describe('tab model', () => {
 
     it('should return current time if not activated', () => {
       expect(model.tabDeactivationTime.unix()).toBeCloseTo(moment.utc().unix())
-    })
-  })
-
-  describe('close()', () => {
-    it('removes tab', () => {
-      model.id = 1
-      model.close()
-      expect(chrome.tabs.remove).toHaveBeenCalledWith(1)
     })
   })
 })

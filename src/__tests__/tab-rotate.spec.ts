@@ -1,18 +1,6 @@
 import { TabRotator } from '../models/tab-rotate'
 import { MockConfig } from '../models/config.mock'
 
-chrome.runtime = {
-  ...chrome.runtime,
-  getManifest: (): chrome.runtime.Manifest => {
-    return {
-      version: '0.0.1',
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      manifest_version: 2,
-      name: 'test'
-    }
-  }
-}
-
 describe('TabRotator', () => {
   let model: TabRotator
   let config: MockConfig
