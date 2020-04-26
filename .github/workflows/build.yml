@@ -30,16 +30,24 @@ jobs:
         node-version: ${{ matrix.node }}
 
     - name: install
-      run: npm install
+      uses: borales/actions-yarn@v2.0.0
+      with:
+        cmd: install
 
     - name: lint
-      run: npm run lint
+      uses: borales/actions-yarn@v2.0.0
+      with:
+        cmd: lint
 
     - name: build
-      run: npm run build
+      uses: borales/actions-yarn@v2.0.0
+      with:
+        cmd: build
 
     - name: test
-      run: npm run test:ci
+      uses: borales/actions-yarn@v2.0.0
+      with:
+        cmd: test:ci
 
     - name: Archive Extension
       uses: actions/upload-artifact@v1
@@ -71,9 +79,21 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm install
-      - run: npm run build
-      - run: npx semantic-release
+
+      - name: install
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
+
+      - name: build
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: build
+
+      - name: semantic-release
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: semantic-release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
