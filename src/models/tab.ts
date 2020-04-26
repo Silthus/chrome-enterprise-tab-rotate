@@ -6,6 +6,7 @@ export class Tab implements IWebsite {
   url: string;
   duration = 10;
   tabReloadIntervalSeconds = 10;
+  zoom = 0.0;
 
   id: number;
   index: number;
@@ -21,6 +22,9 @@ export class Tab implements IWebsite {
     this.id = tab.id
     this.index = tab.index
     this.loaded = tab.url !== ''
+    if (this.loaded && tab.active) {
+      chrome.tabs.setZoom(this.zoom);
+    }
   };
 
   constructor (
@@ -29,6 +33,7 @@ export class Tab implements IWebsite {
     this.url = website.url
     this.duration = website.duration
     this.tabReloadIntervalSeconds = website.tabReloadIntervalSeconds
+    this.zoom = website.zoom
   }
 
   public load (options: { active?: boolean; lazyLoad?: boolean } = { active: false, lazyLoad: true }): Promise<Tab> {
@@ -46,22 +51,23 @@ export class Tab implements IWebsite {
           resolve(this)
         })
       }
-    })
+    });
   }
 
   /**
    * returns the tab duration in milliseconds
    */
   public activate (): number {
-    if (this.isReloadRequired()) this.load()
+    if (this.isReloadRequired()) this.load();
     if (this.id === undefined) {
       console.error('Unable to load tab ' + this.url + '. No ID!')
       throw new Error('Unable to load tab ' + this.url + '. No ID!')
     }
 
     this.activationTime = moment.utc()
-    chrome.tabs.update(this.id, { active: true })
-    return this.duration * 1000
+    chrome.tabs.update(this.id, { active: true }, tab => this._tabCallback(tab));
+
+    return this.duration * 1000;
   }
 
   public close (): void {

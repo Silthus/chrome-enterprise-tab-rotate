@@ -8,7 +8,8 @@ describe('tab model', () => {
     model = new Tab({
       url: 'http://localhost.it',
       duration: 10,
-      tabReloadIntervalSeconds: 10
+      tabReloadIntervalSeconds: 10,
+      zoom: 0
     })
   })
 
@@ -58,6 +59,7 @@ describe('tab model', () => {
   })
 
   describe('activate()', () => {
+
     it('calls load() if isReloadRequired()', () => {
       model.id = 1
       model.loaded = false
@@ -79,8 +81,26 @@ describe('tab model', () => {
 
     it('calls chrome.tabs.update and activates tab', () => {
       model.id = 1
-      model.activate()
-      expect(chrome.tabs.update).toHaveBeenCalledWith(1, { active: true })
+      model.activate();
+      expect(chrome.tabs.update).toHaveBeenCalledWith(1, { active: true }, expect.any(Function))
+    })
+
+    it('should set zoom factor', () => {
+      jest.spyOn(chrome.tabs, 'setZoom');
+
+      const zoomFactor = 0.5;
+      model.id = 1;
+      model.zoom = zoomFactor;
+      model.activate();
+      expect(chrome.tabs.setZoom).toHaveBeenLastCalledWith(zoomFactor);
+    })
+
+    it('should reset zoom factor to 0', () => {
+      jest.spyOn(chrome.tabs, 'setZoom');
+
+      model.id = 1;
+      model.activate();
+      expect(chrome.tabs.setZoom).toHaveBeenLastCalledWith(0);
     })
   })
 

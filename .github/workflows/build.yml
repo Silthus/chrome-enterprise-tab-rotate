@@ -12,11 +12,11 @@ jobs:
   build:
 
     needs: prepare
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node: [8, 10, 12]
+        node-version: [8.x, 10.x, 12.x, 14.x]
         os: [ubuntu-latest]
 
     steps:
@@ -30,22 +30,41 @@ jobs:
         node-version: ${{ matrix.node }}
 
     - name: install
-      run: npm install
-
-    - name: lint
-      run: npm run lint
+      run: yarn install
 
     - name: build
-      run: npm run build
-
-    - name: test
-      run: npm run test:ci
+      run: yarn build
 
     - name: Archive Extension
       uses: actions/upload-artifact@v1
       with:
         name: chrome-enterprise-tab-rotate
         path: dist
+
+  test:
+    needs: prepare
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x, 14.x]
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        lfs: true
+
+    - name: Use node ${{ matrix.node }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node }}
+
+    - name: install
+      run: yarn install
+
+    - name: test
+      run: yarn test:ci
 
     - name: Coveralls Parallel
       uses: coverallsapp/github-action@master
@@ -60,6 +79,31 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         parallel-finished: true
 
+  lint:
+    needs: prepare
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x, 14.x]
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        lfs: true
+
+    - name: Use node ${{ matrix.node }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node }}
+
+    - name: install
+      run: yarn install
+
+    - name: lint
+      run: yarn lint
+
   release:
     needs: build
     runs-on: ubuntu-latest
@@ -70,10 +114,11 @@ jobs:
           lfs: true
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
-      - run: npm install
-      - run: npm run build
-      - run: npx semantic-release
+          node-version: 14.x
+
+      - run: yarn install
+      - run: yarn build
+      - run: yarn semantic-release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}

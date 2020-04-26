@@ -48,12 +48,14 @@ Each of these configuration methods requires a valid JSON config in the followin
         {
             "url": "https://github.com/Silthus/chrome-enterprise-tab-rotate",
             "duration": 10,
-            "tabReloadIntervalSeconds": 60
+            "tabReloadIntervalSeconds": 60,
+            "zoom": 1.0
         },
         {
             "url": "https://michaelreichenbach.de/",
             "duration": 10,
-            "tabReloadIntervalSeconds": 60
+            "tabReloadIntervalSeconds": 60,
+            "zoom": 0.5
         }
     ]
 }
@@ -68,6 +70,7 @@ Each of these configuration methods requires a valid JSON config in the followin
 | `website.url` | `''` | URL to load. |
 | `website.duration` | `10` | How long to display the tab in seconds. |
 | `website.tabReloadIntervalSeconds` | `60` | Total time in seconds after which the website is reloaded. |
+| `website.zoom` | `0.0` | Zoom level of the tab. 0 resets the zoom level to the default tab zoom. |
 
 ## Credits
 
