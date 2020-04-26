@@ -1,3 +1,20 @@
+# [1.1.0](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.0.4...v1.1.0) (2020-04-26)
+
+
+### Bug Fixes
+
+* **tests:** fixed flaky tests and added old testlib ([8af578c](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/8af578c51ede66d78dbcc02949beb545e951e636))
+* package.json & package-lock.json to reduce vulnerabilities ([d6e7745](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/d6e7745725ed32f8bd2e7a7eb494c324ccac5381))
+* upgrade rxjs from 6.5.4 to 6.5.5 ([b4cf708](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/b4cf708cc2fe9cc2f7c95a9d2b59782d21bd2984))
+* upgrade rxjs from 6.5.4 to 6.5.5 ([7225c2b](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/7225c2bf10b1e49a7f0943c9f8860c6538ccb05f))
+* **config:** allow any url scheme in the manifest ([2c9c992](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/2c9c992891b51d9563dc0dacfa6fb28488ab8492)), closes [#14](https://github.com/Silthus/chrome-enterprise-tab-rotate/issues/14)
+
+
+### Features
+
+* **config:** set zoom level for websites ([d433ae5](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/d433ae5754306d5d1bd38416720a3c5ac0ce5796)), closes [#19](https://github.com/Silthus/chrome-enterprise-tab-rotate/issues/19)
+* **tab:** allow setting zoom level in tab config ([2139989](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/213998905a32e3f608ed8cb8e329e56fcecff405)), closes [#13](https://github.com/Silthus/chrome-enterprise-tab-rotate/issues/13)
+
 ## [1.0.4](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.0.3...v1.0.4) (2020-04-26)
 
 
