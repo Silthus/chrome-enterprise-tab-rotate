@@ -1,3 +1,11 @@
+## [1.0.4](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.0.3...v1.0.4) (2020-04-26)
+
+
+### Bug Fixes
+
+* upgrade rxjs from 6.5.4 to 6.5.5 ([fd94829](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/fd948299268ee13892d9c7c3df7f82750a97a6c0))
+* upgrade rxjs from 6.5.4 to 6.5.5 ([a59dfc7](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/a59dfc7db894076571204c107c908cef14afbf64))
+
 ## [1.0.3](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.0.2...v1.0.3) (2020-04-14)
 
 
