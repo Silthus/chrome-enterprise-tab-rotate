@@ -12,11 +12,11 @@ jobs:
   build:
 
     needs: prepare
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node: [14]
+        node-version: [8.x, 10.x, 12.x, 14.x]
         os: [ubuntu-latest]
 
     steps:
@@ -30,24 +30,16 @@ jobs:
         node-version: ${{ matrix.node }}
 
     - name: install
-      uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: install
+      run: yarn install
 
     - name: lint
-      uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: lint
+      run: yarn lint
 
     - name: build
-      uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: build
+      run: yarn build
 
     - name: test
-      uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: test:ci
+      run: yarn test:ci
 
     - name: Archive Extension
       uses: actions/upload-artifact@v1
@@ -78,22 +70,11 @@ jobs:
           lfs: true
       - uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 14.x
 
-      - name: install
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: install
-
-      - name: build
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: build
-
-      - name: semantic-release
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: semantic-release
+      - run: yarn install
+      - run: yarn build
+      - run: yarn semantic-release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
