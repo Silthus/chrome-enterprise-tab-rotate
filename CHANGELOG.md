@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.1.0...v1.1.1) (2020-05-27)
+
+
+### Bug Fixes
+
+* upgrade jquery from 3.5.0 to 3.5.1 ([#22](https://github.com/Silthus/chrome-enterprise-tab-rotate/issues/22)) ([d9760e3](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/d9760e35e194d5146052a8530fd434e8b747f95d))
+
 # [1.1.0](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.0.4...v1.1.0) (2020-04-27)
 
 
