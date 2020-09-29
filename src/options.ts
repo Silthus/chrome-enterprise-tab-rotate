@@ -11,13 +11,13 @@ function adjustTextarea (h): void {
 function showRemote (): void {
   $('.local').hide()
   $('.remote').show()
-  $('#config').unbind('keyup')
+  $('#config').off('keyup')
 }
 
 function showLocal (): void {
   $('.local').show()
   $('.remote').hide()
-  $('#config').keyup(el => adjustTextarea(el.target))
+  $('#config').on('keyup', el => adjustTextarea(el.target))
 }
 
 function updateOptionsGui (prop: IConfigProperty): void {
@@ -25,9 +25,26 @@ function updateOptionsGui (prop: IConfigProperty): void {
     prop.value = JSON.stringify(prop.value, undefined, 4)
   }
 
-  $('#' + prop.key)
+  console.log(prop.key + ": " + prop.value)
+
+  if (prop.key === 'retryCount') {
+    $('#retry_count')
+    .val(prop.value)
+    .prop('disabled', prop.type === 'managed');
+  } else if (prop.key === 'retryInterval') {
+    $('#retry_interval')
+    .val(prop.value)
+    .prop('disabled', prop.type === 'managed');
+  } else if (prop.key === 'reloadInterval') {
+    $('#reload_interval')
+    .val(prop.value)
+    .prop('disabled', prop.type === 'managed');
+  } else {
+    $('#' + prop.key)
     .val(prop.value)
     .prop('disabled', prop.type === 'managed')
+  }
+
   $('#' + prop.key + '_managed_val')
     .text(prop.type === 'default' ? 'Default value' : 'Overriden by policy')
     .show()
@@ -73,6 +90,7 @@ export function restoreOptions (): void {
   OPTIONS.ConfigLoaded.subscribe(config => {
     console.log('config loaded...')
     console.log(config)
+    
     if (config.source === 'local') {
       showLocal()
     } else {
@@ -92,7 +110,8 @@ $(document).on('change', '#source', () => {
   }
 })
 
-$('#status').hide()
-$('#save').click(saveOptions)
 $(restoreOptions)
+$('#status').hide()
+$('#save').on('click', saveOptions)
 adjustTextarea($('#config')[0])
+console.log("options initialized")
