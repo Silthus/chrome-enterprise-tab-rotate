@@ -7,22 +7,24 @@ export interface ITabRotationConfig {
   websites?: IWebsite[];
 }
 
-export const ROTATION_CONFIG_DEFAULTS: ITabRotationConfig = {
-  autoStart: false,
-  fullscreen: false,
-  lazyLoadTabs: true,
-  websites: []
+export const configDefaults = (): ITabRotationConfig => {
+  return {
+    autoStart: false,
+    fullscreen: false,
+    lazyLoadTabs: true,
+    websites: []
+  }
 }
 
 export class TabRotationConfig {
   private _options: ITabRotationConfig;
-  get autoStart (): boolean { return this._options.autoStart };
-  get fullscreen (): boolean { return this._options.fullscreen };
-  get lazyLoadTabs (): boolean { return this._options.lazyLoadTabs };
-  get websites (): IWebsite[] { return this._options.websites };
+  get autoStart(): boolean { return this._options.autoStart };
+  get fullscreen(): boolean { return this._options.fullscreen };
+  get lazyLoadTabs(): boolean { return this._options.lazyLoadTabs };
+  get websites(): IWebsite[] { return this._options.websites };
 
-  constructor (options?: ITabRotationConfig) {
-    this._options = { ...ROTATION_CONFIG_DEFAULTS, ...options }
+  constructor(options?: ITabRotationConfig) {
+    this._options = { ...configDefaults(), ...options }
     if (options.websites && options.websites?.length > 0) {
       this._options.websites = options.websites.map(website => new Website(website))
     }
