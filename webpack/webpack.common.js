@@ -35,7 +35,7 @@ module.exports = {
         // exclude locale files in moment
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new CopyPlugin([
-            { from: '.', to: '../' }
+            { patterns: [{from: '.', to: '../' }]}
           ],
           {context: 'public' }
         ),
