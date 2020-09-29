@@ -29,7 +29,10 @@ export class TabRotateSession {
       const result: Promise<Tab>[] = []
       this._config.websites.forEach((website, i) => {
         this._tabs[i] = new Tab(website)
-        result.push(this._tabs[i].load())
+        result.push(this._tabs[i].load({
+          active: i == 0,
+          lazyLoad: this._config.lazyLoadTabs
+        }))
       })
       return Promise.all(result)
     }
