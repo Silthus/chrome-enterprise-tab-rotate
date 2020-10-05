@@ -104,7 +104,7 @@ export class TabRotator {
       status = { status: 'error', message: 'cannot start tab rotation: config is undefined.' }
       this._statusChanged.next(status)
       return status
-    };
+    }
     if (this._session && this._session.isActive) return this.reload()
 
     this._session = new TabRotateSession(this._config)

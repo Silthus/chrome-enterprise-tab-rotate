@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Observable } from 'rxjs'
 import * as jQuery from 'jquery'
 import { TabRotator } from './models/tab-rotate'
