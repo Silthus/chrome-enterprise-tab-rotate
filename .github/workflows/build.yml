@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       with:
-        lfs: true
+        lfs: false
 
     - name: Use node ${{ matrix.node }}
       uses: actions/setup-node@v1
@@ -91,7 +91,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       with:
-        lfs: true
+        lfs: false
 
     - name: Use node ${{ matrix.node }}
       uses: actions/setup-node@v1
@@ -111,7 +111,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
         with:
-          lfs: true
+          lfs: false
       - uses: actions/setup-node@v1
         with:
           node-version: 14.x
