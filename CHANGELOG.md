@@ -1,3 +1,20 @@
+## [1.1.2](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.1.1...v1.1.2) (2020-10-06)
+
+
+### Bug Fixes
+
+* **build:** revert package upgrade to stable build ([edde1fd](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/edde1fdf3a9ae761836ece439432df650f8ae797))
+* **build:** update webpack to match package versions ([b34c621](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/b34c621d1de680a2777bfbec67f568f949ba8baa))
+* **build:** use correct webpack copy plugin pattern ([a389f65](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/a389f6506e00591279127a927a8730d10ad5f8d2))
+* **options:** display loaded config values in gui ([f7993e1](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/f7993e1f4482b24fa9a7afc492e6ec9190a64ad3)), closes [#32](https://github.com/Silthus/chrome-enterprise-tab-rotate/issues/32)
+* **tabs:** load all tabs immediately if lazyLoad=false ([0bf13f9](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/0bf13f918d0a2b26506c43328364b9d7014644bc)), closes [#31](https://github.com/Silthus/chrome-enterprise-tab-rotate/issues/31)
+
+
+### Reverts
+
+* bump dependencies to latest versions ([ef979c9](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/ef979c9fdcce265ee126bcd15f7906d6e66a22e1))
+* update webpack to match package versions ([d98cbd6](https://github.com/Silthus/chrome-enterprise-tab-rotate/commit/d98cbd610cfdafa504170fc9394a73293a65b7f4))
+
 ## [1.1.2](https://github.com/Silthus/chrome-enterprise-tab-rotate/compare/v1.1.1...v1.1.2) (2020-10-05)
 
 
