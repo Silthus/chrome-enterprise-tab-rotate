@@ -16,7 +16,7 @@
     "url": "https://github.com/Silthus/chrome-enterprise-tab-rotate.git"
   },
   "dependencies": {
-    "deep-equal": "^2.0.4",
+    "deep-equal": "^2.0.5",
     "jquery": "^3.5.1",
     "moment": "~2.29.0",
     "rxjs": "^6.6.3"
