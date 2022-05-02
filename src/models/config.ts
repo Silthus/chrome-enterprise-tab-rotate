@@ -54,11 +54,11 @@ export class Config implements IConfig {
 
   public load (): void {
     this.loadDefaults()
-    const localStorage = new Promise((resolve) => chrome.storage.sync.get(items => {
+    const localStorage = new Promise<void>((resolve) => chrome.storage.sync.get(items => {
       this.loadConfig(items, 'local')
       resolve()
     }))
-    const managedStorage = new Promise((resolve) => chrome.storage.managed.get(items => {
+    const managedStorage = new Promise<void>((resolve) => chrome.storage.managed.get(items => {
       this.loadConfig(items, 'managed')
       resolve()
     }))

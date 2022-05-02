@@ -47,7 +47,7 @@ export class TabRotator {
   public init (): Promise<ITabRotationConfig> {
     console.log('init()')
 
-    const result = new Promise(resolve => {
+    const result = new Promise<ITabRotationConfig>(resolve => {
       this._options.ConfigLoaded.pipe(
         tap(config => {
           console.log('loaded tab rotate config... - reload interval: ' + +config.reloadInterval * 1000 + 'ms')
@@ -87,7 +87,7 @@ export class TabRotator {
         this._initialized = true
         analytics.startup()
 
-        resolve()
+        resolve(config)
       })
     })
 
