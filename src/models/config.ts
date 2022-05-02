@@ -5,7 +5,7 @@ import { ITabRotationConfig } from './tab-rotation-config'
 
 const DEFAULT_CONFIG = {
   source: 'remote',
-  url: 'https://raw.githubusercontent.com/Silthus/chrome-enterprise-tab-rotate/master/docs/config.sample.json',
+  url: 'https://raw.githubusercontent.com/Silthus/chrome-enterprise-tab-rotate/main/docs/config.sample.json',
   retryCount: 6,
   retryInterval: 10,
   reloadInterval: 60
@@ -27,7 +27,7 @@ export class Config implements IConfig {
 
   source: ConfigSource = 'remote';
   url =
-    'https://raw.githubusercontent.com/Silthus/chrome-enterprise-tab-rotate/master/docs/config.sample.json';
+    'https://raw.githubusercontent.com/Silthus/chrome-enterprise-tab-rotate/main/docs/config.sample.json';
 
   retryCount = 6;
   retryInterval = 10;

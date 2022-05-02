@@ -7,7 +7,7 @@ export class MockConfig {
 
     source: ConfigSource = 'remote';
     url =
-        'https://raw.githubusercontent.com/Silthus/chrome-enterprise-tab-rotate/master/docs/config.sample.json';
+        'https://raw.githubusercontent.com/Silthus/chrome-enterprise-tab-rotate/main/docs/config.sample.json';
 
     retry_count = 6;
     retry_interval = 10;
