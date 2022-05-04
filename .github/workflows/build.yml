@@ -20,7 +20,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
       with:
         lfs: false
 
@@ -51,7 +51,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
       with:
         lfs: true
 
@@ -89,7 +89,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
       with:
         lfs: false
 
@@ -109,7 +109,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
         with:
           lfs: false
       - uses: actions/setup-node@v1
