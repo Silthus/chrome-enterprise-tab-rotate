@@ -1,6 +1,6 @@
 {
   "name": "chrome-enterprise-tab-rotate",
-  "packageManager": "yarn@3.2.0",
+  "packageManager": "yarn@3.2.1",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --config webpack/webpack.dev.js --watch",
