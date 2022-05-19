@@ -26,7 +26,7 @@
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
-    "@types/chrome": "0.0.124",
+    "@types/chrome": "0.0.188",
     "@types/deep-equal": "^1.0.1",
     "@types/google.analytics": "0.0.40",
     "@types/jest": "^26.0.14",
